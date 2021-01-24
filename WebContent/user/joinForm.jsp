@@ -64,12 +64,12 @@
 		<div class="container main-menu">
 			<div class="row align-items-center justify-content-between d-flex">
 				<div id="logo">
-					<a href="index.jsp"><img src="img/logo.png" alt="" title="" /></a>
+					<a href="../index.jsp"><img src="img/logo.png" alt="" title="" /></a>
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="login.jsp">로그인</a></li>
-						<li><a href="signup.jsp">회원가입</a></li>
+						<li><a href="#">로그인</a></li>
+						<li><a href="/project/user?cmd=joinForm">회원가입</a></li>
 						<li><a href="#">항공권 예매</a></li>
 						<li><a href="#">예약 조회</a></li>
 						<li><a href="#">항공편 조회</a></li>
@@ -88,7 +88,7 @@
 		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
-					<h1 class="text-white">Login</h1>
+					<h1 class="text-white">Sign Up</h1>
 				</div>
 			</div>
 		</div>
@@ -98,43 +98,51 @@
 	<div class="content">
 		<div class="container">
 			<div class="row justify-content-center">
-				<!-- <div class="col-md-6 order-md-2">
-					  <img src="images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid">
-					</div> -->
 				<div class="col-md-6 contents">
 					<div class="row justify-content-center">
 						<div class="col-md-12">
 							<div class="form-block">
 								<div class="mb-4">
 									<h3>
-										<strong>로그인</strong>
+										<strong>Sign up</strong>
 									</h3>
 								</div>
-								<form action="#" method="post">
+								<form action="/project/user?cmd=join" method="post">
 									<div class="form-group first">
 										<label for="username">Username</label> <input type="text"
-											class="form-control" id="username">
+											class="form-control" id="username" name="username">
+
+									</div>
+									<div class="form-group first">
+										<label for="password">Password</label> <input type="password"
+											class="form-control" id="password" name="password">
+
+
+									</div>
+									<div class="form-group">
+										<label for="email">Email</label> <input type="text"
+											class="form-control" id="email" name = "email">
 
 									</div>
 									<div class="form-group last mb-4">
-										<label for="password">Password</label> <input type="password"
-											class="form-control" id="password">
+										<label for="address">Address</label> <input type="text"
+											class="form-control" id="address" name="address">
 
 									</div>
 
 									<div class="d-flex mb-5 align-items-center">
-										<label class="control control--checkbox mb-0"><span
-											class="caption">Remember me</span> <input type="checkbox"
-											checked="checked" />
+										<label class="control control--checkbox mb-3 mb-sm-0"><span
+											class="caption">Agree our <a href="#">Terms and
+													Conditions</a></span> <input type="checkbox" checked="checked" />
 											<div class="control__indicator"></div> </label> <span class="ml-auto"><a
-											href="#" class="forgot-pass">Forgot Password</a></span>
+											href="#" class="forgot-pass">Sign In</a></span>
 									</div>
 
-									<input type="submit" value="Log In"
+									<input type="submit" value="Register"
 										class="btn btn-pill text-white btn-block btn-primary">
 
 									<span class="d-block text-center my-4 text-muted"> or
-										sign in with</span>
+										register with</span>
 
 									<div class="social-login text-center">
 										<a href="#" class="facebook"> <span

@@ -1,12 +1,24 @@
 package com.cos.project.config;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class DBConn {
+	
+	public static void close (Connection conn, PreparedStatement pstmt) {
+		try {
+			conn.close();
+			pstmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static Connection getConnection() {
 		try {
 			Context initContext = new InitialContext();

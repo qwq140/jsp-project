@@ -26,18 +26,18 @@
 <!--
 			CSS
 			============================================= -->
-<link rel="stylesheet" href="css/linearicons.css">
-<link rel="stylesheet" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-<link rel="stylesheet" href="css/jquery-ui.css">
-<link rel="stylesheet" href="css/nice-select.css">
-<link rel="stylesheet" href="css/animate.min.css">
-<link rel="stylesheet" href="css/owl.carousel.css">
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="fonts/icomoon/style.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../css/linearicons.css">
+<link rel="stylesheet" href="../css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/bootstrap.css">
+<link rel="stylesheet" href="../css/magnific-popup.css">
+<link rel="stylesheet" href="../css/jquery-ui.css">
+<link rel="stylesheet" href="../css/nice-select.css">
+<link rel="stylesheet" href="../css/animate.min.css">
+<link rel="stylesheet" href="../css/owl.carousel.css">
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../fonts/icomoon/style.css">
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 	<header id="header">
@@ -64,12 +64,12 @@
 		<div class="container main-menu">
 			<div class="row align-items-center justify-content-between d-flex">
 				<div id="logo">
-					<a href="index.jsp"><img src="img/logo.png" alt="" title="" /></a>
+					<a href="../index.jsp"><img src="../img/logo.png" alt="" title="" /></a>
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="login.jsp">로그인</a></li>
-						<li><a href="signup.jsp">회원가입</a></li>
+						<li><a href="/project/user?cmd=loginForm">로그인</a></li>
+						<li><a href="/project/user?cmd=joinForm">회원가입</a></li>
 						<li><a href="#">항공권 예매</a></li>
 						<li><a href="#">예약 조회</a></li>
 						<li><a href="#">항공편 조회</a></li>
@@ -88,7 +88,7 @@
 		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
-					<h1 class="text-white">Sign Up</h1>
+					<h1 class="text-white">Login</h1>
 				</div>
 			</div>
 		</div>
@@ -98,50 +98,43 @@
 	<div class="content">
 		<div class="container">
 			<div class="row justify-content-center">
+				<!-- <div class="col-md-6 order-md-2">
+					  <img src="images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid">
+					</div> -->
 				<div class="col-md-6 contents">
 					<div class="row justify-content-center">
 						<div class="col-md-12">
 							<div class="form-block">
 								<div class="mb-4">
 									<h3>
-										<strong>Sign up</strong>
+										<strong>로그인</strong>
 									</h3>
 								</div>
 								<form action="#" method="post">
 									<div class="form-group first">
-										<label for="name">Name</label> <input type="text"
-											class="form-control" id="name">
+										<label for="username">Username</label> <input type="text"
+											class="form-control" id="username">
 
 									</div>
-									<div class="form-group first">
-										<label for="email">Email</label> <input type="text"
-											class="form-control" id="email">
-
-									</div>
-									<div class="form-group">
+									<div class="form-group last mb-4">
 										<label for="password">Password</label> <input type="password"
 											class="form-control" id="password">
 
 									</div>
-									<div class="form-group last mb-4">
-										<label for="re-password">Re-type Password</label> <input
-											type="password" class="form-control" id="re-password">
-
-									</div>
 
 									<div class="d-flex mb-5 align-items-center">
-										<label class="control control--checkbox mb-3 mb-sm-0"><span
-											class="caption">Agree our <a href="#">Terms and
-													Conditions</a></span> <input type="checkbox" checked="checked" />
+										<label class="control control--checkbox mb-0"><span
+											class="caption">Remember me</span> <input type="checkbox"
+											checked="checked" />
 											<div class="control__indicator"></div> </label> <span class="ml-auto"><a
-											href="#" class="forgot-pass">Sign In</a></span>
+											href="#" class="forgot-pass">Forgot Password</a></span>
 									</div>
 
-									<input type="submit" value="Register"
+									<input type="submit" value="Log In"
 										class="btn btn-pill text-white btn-block btn-primary">
 
 									<span class="d-block text-center my-4 text-muted"> or
-										register with</span>
+										sign in with</span>
 
 									<div class="social-login text-center">
 										<a href="#" class="facebook"> <span
@@ -264,22 +257,22 @@
 	</footer>
 	<!-- End footer Area -->
 
-	<script src="js/vendor/jquery-2.2.4.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="../js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="../js/popper.min.js"></script>
+	<script src="../js/vendor/bootstrap.min.js"></script>
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-	<script src="js/jquery-ui.js"></script>
-	<script src="js/easing.min.js"></script>
-	<script src="js/hoverIntent.js"></script>
-	<script src="js/superfish.min.js"></script>
-	<script src="js/jquery.ajaxchimp.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/jquery.nice-select.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/mail-script.js"></script>
-	<script src="js/main.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script src="../js/jquery-ui.js"></script>
+	<script src="../js/easing.min.js"></script>
+	<script src="../js/hoverIntent.js"></script>
+	<script src="../js/superfish.min.js"></script>
+	<script src="../js/jquery.ajaxchimp.min.js"></script>
+	<script src="../js/jquery.magnific-popup.min.js"></script>
+	<script src="../js/jquery.nice-select.min.js"></script>
+	<script src="../js/owl.carousel.min.js"></script>
+	<script src="../js/mail-script.js"></script>
+	<script src="../js/main.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
 
 
 </body>

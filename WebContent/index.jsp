@@ -61,8 +61,8 @@
 				      </div>
 				      <nav id="nav-menu-container">
 				        <ul class="nav-menu">
-				          <li><a href="login.jsp">로그인</a></li>
-				          <li><a href="signup.jsp">회원가입</a></li>
+				          <li><a href="/project/user?cmd=loginForm">로그인</a></li>
+				          <li><a href="/project/user?cmd=joinForm">회원가입</a></li>
 				          <li><a href="#">항공권 예매</a></li>
 						  <li><a href="#">예약 조회</a></li>
 						  <li><a href="#">항공편 현황</a></li>				          				          					          		          
