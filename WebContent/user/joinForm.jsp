@@ -64,11 +64,11 @@
 		<div class="container main-menu">
 			<div class="row align-items-center justify-content-between d-flex">
 				<div id="logo">
-					<a href="../index.jsp"><img src="img/logo.png" alt="" title="" /></a>
+					<a href="/../index.jsp"><img src="img/logo.png" alt="" title="" /></a>
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="#">로그인</a></li>
+						<li><a href="/project/user?cmd=loginForm">로그인</a></li>
 						<li><a href="/project/user?cmd=joinForm">회원가입</a></li>
 						<li><a href="#">항공권 예매</a></li>
 						<li><a href="#">예약 조회</a></li>
@@ -109,25 +109,20 @@
 								</div>
 								<form action="/project/user?cmd=join" method="post">
 									<div class="form-group first">
-										<label for="username">Username</label> <input type="text"
-											class="form-control" id="username" name="username">
-
+										<input type="text"
+											class="form-control" id="username" name="username" placeholder = "Enter username" required>
 									</div>
 									<div class="form-group first">
-										<label for="password">Password</label> <input type="password"
-											class="form-control" id="password" name="password">
-
-
+										<input type="password"
+											class="form-control" id="password" name="password" placeholder = "Enter password" required>
 									</div>
 									<div class="form-group">
-										<label for="email">Email</label> <input type="text"
-											class="form-control" id="email" name = "email">
-
+										<input type="text"
+											class="form-control" id="email" name = "email" placeholder = "Enter email" required>
 									</div>
 									<div class="form-group last mb-4">
-										<label for="address">Address</label> <input type="text"
-											class="form-control" id="address" name="address">
-
+										<input type="text"
+											class="form-control" id="address" name="address" placeholder = "Enter address" required>
 									</div>
 
 									<div class="d-flex mb-5 align-items-center">

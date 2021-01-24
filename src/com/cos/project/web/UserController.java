@@ -9,8 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.cos.project.domain.user.User;
 import com.cos.project.domain.user.dto.JoinReqDto;
+import com.cos.project.domain.user.dto.LoginReqDto;
 import com.cos.project.service.UserService;
 import com.cos.project.util.Script;
 
@@ -60,8 +63,32 @@ public class UserController extends HttpServlet {
 			} else {
 				Script.back(response, "회원가입 실패");
 			}
+		} else if(cmd.equals("loginForm")) {
+			RequestDispatcher dis = request.getRequestDispatcher("user/loginForm.jsp");
+			dis.forward(request, response);
+		} else if(cmd.equals("login")) {
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			
+			LoginReqDto dto = new LoginReqDto();
+			dto.setUsername(username);
+			dto.setPassword(password);
+			
+			User userEntity = userService.로그인(dto);
+			System.out.println(dto);
+			if(userEntity != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("principal", userEntity);
+				response.sendRedirect("index.jsp");
+			} else {
+				Script.back(response, "로그인실패");
+			}
 			
 			
+		} else if(cmd.equals("logout")) {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			response.sendRedirect("index.jsp");
 		}
 	}
 
