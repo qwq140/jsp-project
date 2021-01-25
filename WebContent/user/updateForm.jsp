@@ -68,8 +68,13 @@
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="/project/user?cmd=loginForm">로그인</a></li>
-						<li><a href="/project/user?cmd=joinForm">회원가입</a></li>
+						<li><a href="/project/user?cmd=logout">로그아웃</a></li>
+						<li class="menu-has-children"><a href="">회원정보</a>
+							<ul>
+								<li><a href="/project/user?cmd=infoForm">회원정보보기</a></li>
+								<li><a href="/project/user?cmd=updateForm">회원정보변경</a></li>
+							</ul>
+						</li>
 						<li><a href="#">항공권 예매</a></li>
 						<li><a href="#">예약 조회</a></li>
 						<li><a href="#">항공편 조회</a></li>
@@ -88,7 +93,7 @@
 		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
-					<h1 class="text-white">Login</h1>
+					<h1 class="text-white">회원정보보기</h1>
 				</div>
 			</div>
 		</div>
@@ -107,44 +112,37 @@
 							<div class="form-block">
 								<div class="mb-4">
 									<h3>
-										<strong>로그인</strong>
+										<strong>회원정보</strong>
 									</h3>
 								</div>
-								<form action="/project/user?cmd=login" method="post">
+								<form action="/project/user?cmd=update" method="post">
+									<input type="hidden" name="id" value="${sessionScope.principal.id }">
+									<label for="username">username</label>
 									<div class="form-group first">
-										<label for="username">Username</label> <input type="text"
-											class="form-control" id="username" name="username">
-
+										<input type="text" class="form-control" id="username"
+											name="username" value="${sessionScope.principal.username }"
+											readonly>
 									</div>
+									<br/>
+									<label for="username">password</label>
+									<div class="form-group first">
+										<input type="password" class="form-control" id="password"
+											name="password" >
+									</div>
+									<br /> 
+									<label for="username">email</label>
+									<div class="form-group">
+										<input type="text" class="form-control" id="email"
+											name="email" value="${sessionScope.principal.email }">
+									</div>
+									<br /> 
+									<label for="username">address</label>
 									<div class="form-group last mb-4">
-										<label for="password">Password</label> <input type="password"
-											class="form-control" id="password" name="password">
-
+										<input type="text" class="form-control" id="address"
+											name="address" value="${sessionScope.principal.address }">
 									</div>
-
-									<div class="d-flex mb-5 align-items-center">
-										<label class="control control--checkbox mb-0"><span
-											class="caption">Remember me</span> <input type="checkbox"
-											checked="checked" />
-											<div class="control__indicator"></div> </label> <span class="ml-auto"><a
-											href="#" class="forgot-pass">Forgot Password</a></span>
-									</div>
-
-									<input type="submit" value="Log In"
+									<input type="submit" value="Register"
 										class="btn btn-pill text-white btn-block btn-primary">
-
-									<span class="d-block text-center my-4 text-muted"> or
-										sign in with</span>
-
-									<div class="social-login text-center">
-										<a href="#" class="facebook"> <span
-											class="icon-facebook mr-3"></span>
-										</a> <a href="#" class="twitter"> <span
-											class="icon-twitter mr-3"></span>
-										</a> <a href="#" class="google"> <span
-											class="icon-google mr-3"></span>
-										</a>
-									</div>
 								</form>
 							</div>
 						</div>

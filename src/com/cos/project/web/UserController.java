@@ -1,7 +1,8 @@
 package com.cos.project.web;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,8 +15,10 @@ import javax.servlet.http.HttpSession;
 import com.cos.project.domain.user.User;
 import com.cos.project.domain.user.dto.JoinReqDto;
 import com.cos.project.domain.user.dto.LoginReqDto;
+import com.cos.project.domain.user.dto.UpdateReqDto;
 import com.cos.project.service.UserService;
 import com.cos.project.util.Script;
+import com.mysql.cj.x.protobuf.MysqlxCrud.Update;
 
 @WebServlet("/user")
 public class UserController extends HttpServlet {
@@ -84,11 +87,34 @@ public class UserController extends HttpServlet {
 				Script.back(response, "로그인실패");
 			}
 			
-			
 		} else if(cmd.equals("logout")) {
 			HttpSession session = request.getSession();
 			session.invalidate();
 			response.sendRedirect("index.jsp");
+		} else if(cmd.equals("infoForm")) {
+			RequestDispatcher dis = request.getRequestDispatcher("user/infoForm.jsp");
+			dis.forward(request, response);
+		} else if(cmd.equals("updateForm")) {
+			RequestDispatcher dis = request.getRequestDispatcher("user/updateForm.jsp");
+			dis.forward(request, response);
+		} else if(cmd.equals("update")) {
+			int id = Integer.parseInt(request.getParameter("id"));
+			String password = request.getParameter("password");
+			String email = request.getParameter("email");
+			String address = request.getParameter("address");
+			
+			UpdateReqDto dto = new UpdateReqDto();
+			dto.setId(id);
+			dto.setPassword(password);
+			dto.setEmail(email);
+			dto.setAddress(address);
+			
+			int result = userService.회원정보수정(dto);
+			if(result == 1) {
+				response.sendRedirect("index.jsp");
+			} else {
+				Script.back(response, "회원정보수정 실패");
+			}
 		}
 	}
 

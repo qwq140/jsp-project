@@ -4,6 +4,7 @@ import com.cos.project.domain.user.User;
 import com.cos.project.domain.user.UserDao;
 import com.cos.project.domain.user.dto.JoinReqDto;
 import com.cos.project.domain.user.dto.LoginReqDto;
+import com.cos.project.domain.user.dto.UpdateReqDto;
 
 public class UserService {
 
@@ -19,5 +20,9 @@ public class UserService {
 	
 	public User 로그인 (LoginReqDto dto) {
 		return userDao.findByUsernameAndPassword(dto);
+	}
+	
+	public int 회원정보수정 (UpdateReqDto dto) {
+		return userDao.update(dto);
 	}
 }

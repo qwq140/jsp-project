@@ -7,8 +7,30 @@ import java.sql.ResultSet;
 import com.cos.project.config.DBConn;
 import com.cos.project.domain.user.dto.JoinReqDto;
 import com.cos.project.domain.user.dto.LoginReqDto;
+import com.cos.project.domain.user.dto.UpdateReqDto;
 
 public class UserDao {
+	
+	// 회원정보수정
+	public int update(UpdateReqDto dto) {
+		String sql = "UPDATE user SET password = ?, email = ?, address = ? WHERE id = ?";
+		Connection conn = DBConn.getConnection();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getPassword());
+			pstmt.setString(2, dto.getEmail());
+			pstmt.setString(3, dto.getAddress());
+			pstmt.setInt(4, dto.getId());
+			int result = pstmt.executeUpdate();
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(conn, pstmt);
+		}
+		return -1;
+	}
 	
 	// 회원가입
 	public int save(JoinReqDto dto) {
@@ -31,6 +53,7 @@ public class UserDao {
 		return -1;
 	}
 	
+	// 로그인
 	public User findByUsernameAndPassword(LoginReqDto dto) {
 		String sql = "SELECT id, username, email, address FROM user WHERE username = ? AND password = ?";
 		Connection conn = DBConn.getConnection();

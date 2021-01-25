@@ -23,6 +23,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
 	rel="stylesheet">
+
 <!--
 			CSS
 			============================================= -->
@@ -64,7 +65,7 @@
 		<div class="container main-menu">
 			<div class="row align-items-center justify-content-between d-flex">
 				<div id="logo">
-					<a href="/../index.jsp"><img src="img/logo.png" alt="" title="" /></a>
+					<a href="index.jsp"><img src="img/logo.png" alt="" title="" /></a>
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
@@ -108,21 +109,23 @@
 									</h3>
 								</div>
 								<form action="/project/user?cmd=join" method="post">
+
+
 									<div class="form-group first">
-										<input type="text"
-											class="form-control" id="username" name="username" placeholder = "Enter username" required>
+										<input type="text" class="form-control" id="username"
+											name="username" placeholder="Enter username" required>
 									</div>
 									<div class="form-group first">
-										<input type="password"
-											class="form-control" id="password" name="password" placeholder = "Enter password" required>
+										<input type="password" class="form-control" id="password"
+											name="password" placeholder="Enter password" required>
 									</div>
 									<div class="form-group">
-										<input type="text"
-											class="form-control" id="email" name = "email" placeholder = "Enter email" required>
+										<input type="text" class="form-control" id="email"
+											name="email" placeholder="Enter email" required>
 									</div>
 									<div class="form-group last mb-4">
-										<input type="text"
-											class="form-control" id="address" name="address" placeholder = "Enter address" required>
+										<input type="text" class="form-control" id="address"
+											name="address" placeholder="Enter address" required>
 									</div>
 
 									<div class="d-flex mb-5 align-items-center">
@@ -260,7 +263,9 @@
 	</footer>
 	<!-- End footer Area -->
 
-	<script src="js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="js/vendor/jquery-2.2.4.min.js">
+		
+	</script>
 	<script src="js/popper.min.js"></script>
 	<script src="js/vendor/bootstrap.min.js"></script>
 	<script
