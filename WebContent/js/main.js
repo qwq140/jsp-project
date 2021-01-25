@@ -14,9 +14,11 @@ $(document).ready(function() {
 
     // ------- Datepicker  js --------//  
 
-      $( function() {
-        $( ".date-picker" ).datepicker();
-      } );
+    $( function() {
+      $( ".date-picker" ).datepicker({
+        dateFormat : 'yymmdd'
+      });
+     });
 
 
     //------- Niceselect  js --------//  

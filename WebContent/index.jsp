@@ -119,18 +119,19 @@
 					<div class="tab-content" id="myTabContent">
 						<div class="tab-pane fade show active" id="flight" role="tabpanel"
 							aria-labelledby="flight-tab">
-							<form class="form-wrap">
-								<input type="text" class="form-control" name="name"
-									placeholder="From " onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'From '"> <input type="text"
-									class="form-control" name="to" placeholder="To "
+							<form class="form-wrap" action = "/project/book?cmd=bookForm" method="post">
+								<input type="hidden" name = "${sessionScope.principal.id }">
+								<input type="text" class="form-control" name="depAirportNm"
+									placeholder="출발지" onfocus="this.placeholder = ''"
+									onblur="this.placeholder = '출발지 '"> <input type="text"
+									class="form-control" name="arrAirportNm" placeholder="도착지 "
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'To '"> <input type="text"
-									class="form-control date-picker" name="start"
-									placeholder="Start " onfocus="this.placeholder = ''"
+									onblur="this.placeholder = '도착지 '"> <input type="text"
+									class="form-control date-picker" name="depPlandTime"
+									placeholder="가는날 " onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'Start '"> <input
-									type="text" class="form-control date-picker" name="return"
-									placeholder="Return " onfocus="this.placeholder = ''"
+									type="text" class="form-control date-picker" name="arrPlandTime"
+									placeholder="오는날 " onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'Return '"> <input
 									type="number" min="1" max="20" class="form-control"
 									name="adults" placeholder="Adults "
@@ -139,8 +140,9 @@
 									type="number" min="1" max="20" class="form-control"
 									name="child" placeholder="Child "
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Child '"> <a href="#"
-									class="primary-btn text-uppercase">Search flights</a>
+									onblur="this.placeholder = 'Child '">
+									<input type="submit" value="조회"
+										class="primary-btn text-uppercase">
 							</form>
 						</div>
 						<div class="tab-pane fade" id="hotel" role="tabpanel"
