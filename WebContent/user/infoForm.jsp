@@ -38,6 +38,8 @@
 <link rel="stylesheet" href="fonts/icomoon/style.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="fonts/icomoon/style.css">
+<link rel="stylesheet" href="css/owl.carousel.min.css">
 </head>
 <body>
 	<header id="header">
@@ -68,11 +70,11 @@
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="/project/user?cmd=logout">로그아웃</a></li>
+						<li><a href="<%=request.getContextPath()%>/user?cmd=logout">로그아웃</a></li>
 						<li class="menu-has-children"><a href="">회원정보</a>
 							<ul>
-								<li><a href="/project/user?cmd=infoForm">회원정보보기</a></li>
-								<li><a href="/project/user?cmd=updateForm">회원정보변경</a></li>
+								<li><a href="<%=request.getContextPath()%>/user?cmd=infoForm">회원정보보기</a></li>
+								<li><a href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보변경</a></li>
 							</ul>
 						</li>
 						<li><a href="#">항공권 예매</a></li>

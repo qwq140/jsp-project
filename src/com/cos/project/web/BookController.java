@@ -17,9 +17,7 @@ import com.cos.project.util.AirVO;
 import com.cos.project.util.ApiExplorer;
 import com.cos.project.util.MyUtils;
 
-/**
- * Servlet implementation class BookController
- */
+
 @WebServlet("/book")
 public class BookController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -57,23 +55,21 @@ public class BookController extends HttpServlet {
 			String arrAirportId = result.get(request.getParameter("arrAirportNm"));
 			String depPlandTime = request.getParameter("depPlandTime");
 			String arrPlandTime = request.getParameter("arrPlandTime");
-			String adults = request.getParameter("adults");
-			String child = request.getParameter("child");
-
+			int personnel = Integer.parseInt(request.getParameter("personnel"));
+			
 			SearchReqDto dto = new SearchReqDto();
 			dto.setDepAirportId(depAirportId);
 			dto.setArrAirportId(arrAirportId);
 			dto.setDepPlandTime(depPlandTime);
 			dto.setArrPlandTime(arrPlandTime);
-			dto.setAdults(adults);
-			dto.setChild(child);
+			dto.setPersonnel(personnel);
 
 			System.out.println(dto);
 
-			List<AirVO> go = ApiExplorer.getAirportJson(depAirportId, arrAirportId, depPlandTime);
-			List<AirVO> back = ApiExplorer.getAirportJson(depAirportId, arrAirportId, arrPlandTime);
+			List<AirVO> go = ApiExplorer.getAirportJson(dto,"go");
+			List<AirVO> back = ApiExplorer.getAirportJson(dto,"back");
 			
-			
+			request.setAttribute("flightSearch", dto);
 			request.setAttribute("go", go);
 			request.setAttribute("back", back);
 

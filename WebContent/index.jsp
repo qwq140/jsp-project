@@ -26,15 +26,15 @@
 <!--
 			CSS
 			============================================= -->
-<link rel="stylesheet" href="css/linearicons.css">
-<link rel="stylesheet" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-<link rel="stylesheet" href="css/jquery-ui.css">
-<link rel="stylesheet" href="css/nice-select.css">
-<link rel="stylesheet" href="css/animate.min.css">
-<link rel="stylesheet" href="css/owl.carousel.css">
-<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/linearicons.css" >
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" >
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css" >
+<link rel="stylesheet" type="text/css" href="css/magnific-popup.css" >
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" >
+<link rel="stylesheet" type="text/css" href="css/nice-select.css" >
+<link rel="stylesheet" type="text/css" href="css/animate.min.css" >
+<link rel="stylesheet" type="text/css" href="css/owl.carousel.css" >
+<link rel="stylesheet" type="text/css" href="css/main.css" >
 </head>
 <body>
 	<header id="header">
@@ -67,17 +67,17 @@
 					<ul class="nav-menu">
 						<c:choose>
 							<c:when test="${sessionScope.principal != null }">
-								<li><a href="/project/user?cmd=logout">로그아웃</a></li>
+								<li><a href="<%=request.getContextPath()%>/user?cmd=logout">로그아웃</a></li>
 								<li class="menu-has-children"><a href="">회원정보</a>
 				            		<ul>
-				              			<li><a href="/project/user?cmd=infoForm">회원정보보기</a></li>
-				              			<li><a href="/project/user?cmd=updateForm">회원정보변경</a></li>
+				              			<li><a href="<%=request.getContextPath()%>/user?cmd=infoForm">회원정보보기</a></li>
+				              			<li><a href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보변경</a></li>
 				            		</ul>
 				          		</li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="/project/user?cmd=loginForm">로그인</a></li>
-								<li><a href="/project/user?cmd=joinForm">회원가입</a></li>
+								<li><a href="<%=request.getContextPath()%>/user?cmd=loginForm">로그인</a></li>
+								<li><a href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
 							</c:otherwise>
 						</c:choose>
 						<li><a href="#">항공권 예매</a></li>
@@ -119,8 +119,8 @@
 					<div class="tab-content" id="myTabContent">
 						<div class="tab-pane fade show active" id="flight" role="tabpanel"
 							aria-labelledby="flight-tab">
-							<form class="form-wrap" action = "/project/book?cmd=bookForm" method="post">
-								<input type="hidden" name = "${sessionScope.principal.id }">
+							<form class="form-wrap" action = "<%=request.getContextPath()%>/book?cmd=bookForm" method="post">
+								<input type="hidden"  name="userId" value = "${sessionScope.principal.id }">
 								<input type="text" class="form-control" name="depAirportNm"
 									placeholder="출발지" onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '출발지 '"> <input type="text"
@@ -134,13 +134,9 @@
 									placeholder="오는날 " onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'Return '"> <input
 									type="number" min="1" max="20" class="form-control"
-									name="adults" placeholder="Adults "
+									name="personnel" placeholder="인원"
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Adults '"> <input
-									type="number" min="1" max="20" class="form-control"
-									name="child" placeholder="Child "
-									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Child '">
+									onblur="this.placeholder = '인원 '">
 									<input type="submit" value="조회"
 										class="primary-btn text-uppercase">
 							</form>

@@ -38,25 +38,10 @@
 <link rel="stylesheet" href="fonts/icomoon/style.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="fonts/icomoon/style.css">
+<link rel="stylesheet" href="css/owl.carousel.min.css">
 
-<script src="js/vendor/jquery-2.2.4.min.js">
-	
-</script>
-<script src="js/popper.min.js"></script>
-<script src="js/vendor/bootstrap.min.js"></script>
-<script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-<script src="js/jquery-ui.js"></script>
-<script src="js/easing.min.js"></script>
-<script src="js/hoverIntent.js"></script>
-<script src="js/superfish.min.js"></script>
-<script src="js/jquery.ajaxchimp.min.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/jquery.nice-select.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/mail-script.js"></script>
-<script src="js/main.js"></script>
-<script src="js/bootstrap.min.js"></script>
+
 </head>
 <body>
 	<header id="header">
@@ -87,8 +72,8 @@
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li><a href="/project/user?cmd=loginForm">로그인</a></li>
-						<li><a href="/project/user?cmd=joinForm">회원가입</a></li>
+						<li><a href="<%=request.getContextPath()%>/user?cmd=loginForm">로그인</a></li>
+						<li><a href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
 						<li><a href="#">항공권 예매</a></li>
 						<li><a href="#">예약 조회</a></li>
 						<li><a href="#">항공편 조회</a></li>
@@ -125,22 +110,26 @@
 										<strong>Sign up</strong>
 									</h3>
 								</div>
-								<form action="/project/user?cmd=join" method="post">
+								<form action="<%=request.getContextPath()%>/user?cmd=join" method="post">
 									<div class="form-group first">
+										<label for="username">Username</label>
 										<input type="text" class="form-control" id="username"
-											name="username" placeholder="Enter username" required>
+											name="username" required>
 									</div>
 									<div class="form-group first">
+										<label for="password">password</label>
 										<input type="password" class="form-control" id="password"
-											name="password" placeholder="Enter password" required>
+											name="password"  required>
 									</div>
 									<div class="form-group">
+									<label for="password">email</label>
 										<input type="text" class="form-control" id="email"
-											name="email" placeholder="Enter email" required>
+											name="email"  required>
 									</div>
 									<div class="form-group last mb-4">
+									<label for="password">address</label>
 										<input type="text" class="form-control" id="address"
-											name="address" placeholder="Enter address" required>
+											name="address" required>
 									</div>
 
 									<div class="d-flex mb-5 align-items-center">
@@ -278,7 +267,23 @@
 		</div>
 	</footer>
 	<!-- End footer Area -->
-
+	<script src="js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/easing.min.js"></script>
+	<script src="js/hoverIntent.js"></script>
+	<script src="js/superfish.min.js"></script>
+	<script src="js/jquery.ajaxchimp.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/jquery.nice-select.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/mail-script.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 
 
 

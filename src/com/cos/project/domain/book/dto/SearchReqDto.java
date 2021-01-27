@@ -8,6 +8,5 @@ public class SearchReqDto {
 	private String arrAirportId;
 	private String depPlandTime;
 	private String arrPlandTime;
-	private String adults;
-	private String child;
+	private int personnel;
 }
