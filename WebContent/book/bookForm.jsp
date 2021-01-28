@@ -115,75 +115,80 @@
 
 	<div class="content">
 		<div class="container">
-			<div class="book-list">
-			</div>
 			<div>가는 편 </div>
-			<div>${flightSearch.personnel }인 기준</div> 
+			<div>${flightSearch.personnel }인 기준</div>
 			<br/>
-			<c:forEach var="item" items="${go }">
-				<div class="container-fluid">
-  					<div class="row">
-    					<div class="col-sm-6" style="border:1px solid gray;" >
-    						<div><span>${item.depPlandTime }  <img src="img/arrows-slim-right_98235.png" >  ${item.arrPlandTime }</span></div>
-                			<div><span>${item.airlineNm }  ${item.vihicleId }</span></div>
-    					</div>
-    					<c:choose>
-    						<c:when test="${item.prestigeCharge!=0 }">
-    							<div class="col-sm-3 text-center" style="border:1px solid gray;">
-    								<div>이코노미</div>
-                					<div>${item.economyCharge }원</div>
-    							</div>
-    							<div class="col-sm-3 text-center" style="border:1px solid gray;">
-    								<div>프레스티지</div>
-             			 			<div>${item.prestigeCharge }원</div>
-    							</div>
-    						</c:when>
-    						<c:otherwise>
-    							<div class="col-sm-6 text-center" style="border:1px solid gray;">
-    								<div>이코노미</div>
-                					<div>${item.economyCharge }원</div>
-    							</div>
-    						</c:otherwise>
-    					</c:choose>
- 					</div>
-				</div>
-				<br/>
-			</c:forEach>
+			<table class="table">
+    			<thead class="thead-light">
+      				<tr>
+        				<th>출도착시간</th>
+        				<th>Economy</th>
+        				<th>Prestige</th>
+        				<th>항공편id</th>
+      				</tr>
+    			</thead>
+   				 <tbody>
+   				 	<c:forEach var="item" items="${go }">
+   				 		<fmt:parseDate value="${item.depPlandTime}" var="depPlandTime" pattern="yyyyMMddHHmm"/>
+    					<fmt:formatDate pattern="HH:mm" value="${depPlandTime }" var="depPlandTime"/>
+    					<fmt:parseDate value="${item.arrPlandTime}" var="arrPlandTime" pattern="yyyyMMddHHmm"/>
+    					<fmt:formatDate pattern="HH:mm" value="${arrPlandTime }" var="arrPlandTime"/>
+   				 		<tr>
+   				 			<td>${depPlandTime } ~ ${arrPlandTime }</td>
+   				 			<td><input type="radio" name="goFlightCheck" onchange="go(${item.depPlandTime},${item.arrPlandTime },${item.economyCharge },'${item.vihicleId }','economy')"> <fmt:formatNumber value="${item.economyCharge }" pattern="#,###" /> KRW</td>
+   				 			<td><input type="radio" name="goFlightCheck" onchange="go(${item.depPlandTime},${item.arrPlandTime },${item.prestigeCharge }, '${item.vihicleId }','prestige')"> <fmt:formatNumber value="${item.prestigeCharge }" pattern="#,###" /> KRW</td>
+   				 			<td>${item.vihicleId }</td>  				 			
+   				 	</c:forEach>    
+    			</tbody>
+  			</table>
+  			
+  			
+			
 			<div>오는 편 </div>
 			<div>${flightSearch.personnel }인 기준</div> 
 			<br/>
-			<c:forEach var="item" items="${back }">
-				<div class="container-fluid">
-  					<div class="row">
-    					<div class="col-sm-6" style="border:1px solid gray;" >
-    						<div><span>${item.depPlandTime }  <img src="img/arrows-slim-right_98235.png" >  ${item.arrPlandTime }</span></div>
-                			<div><span>${item.airlineNm }  ${item.vihicleId }</span></div>
-    					</div>
-    					<c:choose>
-    						<c:when test="${item.prestigeCharge!=0 }">
-    							<div class="col-sm-3 text-center" style="border:1px solid gray;">
-    								<div>이코노미</div>
-                					<div>${item.economyCharge }원</div>
-    							</div>
-    							<div class="col-sm-3 text-center" style="border:1px solid gray;">
-    								<div>프레스티지</div>
-             			 			<div>${item.prestigeCharge }원</div>
-    							</div>
-    						</c:when>
-    						<c:otherwise>
-    							<div class="col-sm-6 text-center" style="border:1px solid gray;">
-    								<div>이코노미</div>
-                					<div>${item.economyCharge }원</div>
-    							</div>
-    						</c:otherwise>
-    					</c:choose>
- 					</div>
-				</div>
-				<br/>
-			</c:forEach>
-			 <form id="book" action="<%=request.getContextPath()%>/book?cmd=book" method="post">
-			 	
-			 </form>
+			<table class="table">
+    			<thead class="thead-light">
+      				<tr>
+        				<th>출도착시간</th>
+        				<th>Economy</th>
+        				<th>Prestige</th>
+        				<th>항공편id</th>
+      				</tr>
+    			</thead>
+   				 <tbody>
+   				 	<c:forEach var="item" items="${back }">
+   				 		<fmt:parseDate value="${item.depPlandTime}" var="depPlandTime" pattern="yyyyMMddHHmm"/>
+    					<fmt:formatDate pattern="HH:mm" value="${depPlandTime }" var="depPlandTime"/>
+    					<fmt:parseDate value="${item.arrPlandTime}" var="arrPlandTime" pattern="yyyyMMddHHmm"/>
+    					<fmt:formatDate pattern="HH:mm" value="${arrPlandTime }" var="arrPlandTime"/>
+   				 		<tr>
+   				 			<td>${depPlandTime } ~ ${arrPlandTime }</td>
+   				 			<td><input type="radio" name="backFlightCheck" onclick="back(${item.depPlandTime},${item.arrPlandTime },${item.economyCharge },'${item.vihicleId }','economy')"> <fmt:formatNumber value="${item.economyCharge }" pattern="#,###" /> KRW</td>
+   				 			<td><input type="radio" name="backFlightCheck" onclick="back(${item.depPlandTime},${item.arrPlandTime },${item.prestigeCharge }, '${item.vihicleId }','prestige')"> <fmt:formatNumber value="${item.prestigeCharge }" pattern="#,###" /> KRW</td>
+   				 			<td>${item.vihicleId }</td>  				 			
+   				 	</c:forEach>    
+    			</tbody>
+  			</table>
+  			<table class="table">
+    			<thead class="thead-light">
+      				<tr>
+      					<th></th>
+        				<th>출발시간</th>
+        				<th>도착시간</th>
+        				<th>항공편</th>
+        				<th>좌석등급</th>
+        				<th>가격</th>
+      				</tr>
+    			</thead>
+   				 <tbody id="select__list">
+   				 	
+    			</tbody>
+  			</table>
+  			<div class="btn-group btn-group-sm pull-right">
+ 				 <button type="button" class="btn btn-secondary" onclick="flightReserve(${sessionScope.principal.id})">예약하기</button>
+  				<button type="button" class="btn btn-secondary">취소</button>
+			</div>
 		</div>
 	</div>
 	<!-- start footer Area -->
@@ -304,6 +309,103 @@
 	<script src="js/main.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
+	<script>
+				function go(depPlandTime, arrPlandTime, charge, vihicleId, grade){
+						var goData = {
+								depPlandTime: depPlandTime,
+								arrPlandTime: arrPlandTime,
+								charge: charge,
+								vihicleId: vihicleId,
+								grade: grade
+						}
+						console.log(goData);
 
+						$("#go__flight").remove();
+												
+						var goSelect = '<tr id="go__flight">';
+						goSelect += '<td>가는 편</td>';
+						goSelect += '<td id="go__depTime">'+goData.depPlandTime+'</td>';
+						goSelect += '<td id="go__arrTime">'+goData.arrPlandTime+'</td>';
+						goSelect += '<td id="go__vihicleId">'+goData.vihicleId+'</td>';
+						goSelect += '<td id="go__grade">'+goData.grade+'</td>';
+						goSelect += '<td id="go__charge">'+goData.charge+'</td>';
+						goSelect += '</tr>';
+
+						$("#select__list").prepend(goSelect);
+						
+					}	
+
+					function back(depPlandTime, arrPlandTime, charge, vihicleId, grade){
+						var backData = {
+								depPlandTime: depPlandTime,
+								arrPlandTime: arrPlandTime,
+								charge: charge,
+								vihicleId: vihicleId,
+								grade: grade
+						}
+						console.log(backData);
+
+						$("#back__flight").remove();
+						
+						var backSelect = '<tr id="back__flight">';
+						backSelect += '<td>오는 편</td>';
+						backSelect += '<td id="back__depTime">'+backData.depPlandTime+'</td>';
+						backSelect += '<td id="back__arrTime">'+backData.arrPlandTime+'</td>';
+						backSelect += '<td id="back__vihicleId">'+backData.vihicleId+'</td>';
+						backSelect += '<td id="back__grade">'+backData.grade+'</td>';
+						backSelect += '<td id="back__charge">'+backData.charge+'</td>';
+						backSelect += '</tr>';
+
+						$("#select__list").prepend(backSelect);
+				}
+
+				function flightReserve(userId){
+					var data = [];
+					
+					var goData = {
+						userId: userId,
+						personnel: ${flightSearch.personnel},
+						depAirportNm: '${flightSearch.depAirportNm}',
+						arrAirportNm: '${flightSearch.arrAirportNm}',
+						depPlandTime: document.getElementById('go__depTime').innerText,
+						arrPlandTime: document.getElementById('go__arrTime').innerText,
+						vihicleId: document.getElementById('go__vihicleId').innerText,
+						grade: document.getElementById('go__grade').innerText,
+						charge: document.getElementById('go__charge').innerText
+					};
+
+					var backData = {
+							userId: userId,
+							personnel: ${flightSearch.personnel},
+							depAirportNm: '${flightSearch.arrAirportNm}',
+							arrAirportNm: '${flightSearch.depAirportNm}',
+							depPlandTime: document.getElementById('back__depTime').innerText,
+							arrPlandTime: document.getElementById('back__arrTime').innerText,
+							vihicleId: document.getElementById('back__vihicleId').innerText,
+							grade: document.getElementById('back__grade').innerText,
+							charge: document.getElementById('back__charge').innerText
+						};
+
+					data.push(goData);
+					data.push(backData);
+					
+					console.log(goData);
+					console.log(backData);
+					console.log(data);
+				
+					$.ajax({
+						type : "post",
+						url : "/project/book?cmd=book",
+						data : JSON.stringify(data),
+						contentType : "application/json; charset=utf-8",
+						dataType : "json"
+					}).done(function(result){
+						
+
+					});
+				}
+
+				
+  		</script>
 </body>
 </html>

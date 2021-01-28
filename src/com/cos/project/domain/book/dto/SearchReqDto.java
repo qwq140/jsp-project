@@ -8,5 +8,4 @@ public class SearchReqDto {
 	private String arrAirportId;
 	private String depPlandTime;
 	private String arrPlandTime;
-	private int personnel;
 }

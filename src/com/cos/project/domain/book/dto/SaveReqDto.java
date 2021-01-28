@@ -1,10 +1,11 @@
-package com.cos.project.domain.book;
+package com.cos.project.domain.book.dto;
+
+
 
 import lombok.Data;
 
 @Data
-public class Book {
-	private int id;
+public class SaveReqDto {
 	private int userId;
 	private int personnel;
 	private String depAirportNm;
