@@ -106,7 +106,7 @@
 		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
-					<h1 class="text-white">항공편</h1>
+					<h1 class="text-white">예약 조회</h1>
 				</div>
 			</div>
 		</div>
@@ -115,82 +115,7 @@
 
 	<div class="content">
 		<div class="container">
-			<c:if test="${go ne null }">
-			<div>가는 편 </div>
-			<br/>
-			<table class="table">
-    			<thead class="thead-light">
-      				<tr>
-        				<th>출도착시간</th>
-        				<th>Economy</th>
-        				<th>Prestige</th>
-        				<th>항공편id</th>
-      				</tr>
-    			</thead>
-   				 <tbody>
-   				 	<c:forEach var="item" items="${go }">
-   				 		<fmt:parseDate value="${item.depPlandTime}" var="depPlandTime" pattern="yyyyMMddHHmm"/>
-    					<fmt:formatDate pattern="HH:mm" value="${depPlandTime }" var="depPlandTime"/>
-    					<fmt:parseDate value="${item.arrPlandTime}" var="arrPlandTime" pattern="yyyyMMddHHmm"/>
-    					<fmt:formatDate pattern="HH:mm" value="${arrPlandTime }" var="arrPlandTime"/>
-   				 		<tr>
-   				 			<td>${depPlandTime } ~ ${arrPlandTime }</td>
-   				 			<td><input type="radio" name="goFlightCheck" onclick="go(${item.depPlandTime},${item.arrPlandTime },${item.economyCharge },'${item.vihicleId }','economy')"> <fmt:formatNumber value="${item.economyCharge }" pattern="#,###" /> KRW</td>
-   				 			<td><input type="radio" name="goFlightCheck" onclick="go(${item.depPlandTime},${item.arrPlandTime },${item.prestigeCharge }, '${item.vihicleId }','prestige')"> <fmt:formatNumber value="${item.prestigeCharge }" pattern="#,###" /> KRW</td>
-   				 			<td>${item.vihicleId }</td>  				 			
-   				 	</c:forEach>    
-    			</tbody>
-  			</table>
-  			</c:if>
-  			
-  			
-			<c:if test="${back ne null }">
-			<div>오는 편 </div>
-			<br/>
-			<table class="table">
-    			<thead class="thead-light">
-      				<tr>
-        				<th>출도착시간</th>
-        				<th>Economy</th>
-        				<th>Prestige</th>
-        				<th>항공편id</th>
-      				</tr>
-    			</thead>
-   				 <tbody>
-   				 	<c:forEach var="item" items="${back }">
-   				 		<fmt:parseDate value="${item.depPlandTime}" var="depPlandTime" pattern="yyyyMMddHHmm"/>
-    					<fmt:formatDate pattern="HH:mm" value="${depPlandTime }" var="depPlandTime"/>
-    					<fmt:parseDate value="${item.arrPlandTime}" var="arrPlandTime" pattern="yyyyMMddHHmm"/>
-    					<fmt:formatDate pattern="HH:mm" value="${arrPlandTime }" var="arrPlandTime"/>
-   				 		<tr>
-   				 			<td>${depPlandTime } ~ ${arrPlandTime }</td>
-   				 			<td><input type="radio" name="backFlightCheck" onclick="back(${item.depPlandTime},${item.arrPlandTime },${item.economyCharge },'${item.vihicleId }','economy')"> <fmt:formatNumber value="${item.economyCharge }" pattern="#,###" /> KRW</td>
-   				 			<td><input type="radio" name="backFlightCheck" onclick="back(${item.depPlandTime},${item.arrPlandTime },${item.prestigeCharge }, '${item.vihicleId }','prestige')"> <fmt:formatNumber value="${item.prestigeCharge }" pattern="#,###" /> KRW</td>
-   				 			<td>${item.vihicleId }</td>  				 			
-   				 	</c:forEach>    
-    			</tbody>
-  			</table>
-  			</c:if>
-  			<table class="table">
-    			<thead class="thead-light">
-      				<tr>
-      					<th></th>
-      					<th>인원</th>
-        				<th>출발시간</th>
-        				<th>도착시간</th>
-        				<th>항공편</th>
-        				<th>좌석등급</th>
-        				<th>가격</th>
-      				</tr>
-    			</thead>
-   				 <tbody id="select__list">
-   				 	
-    			</tbody>
-  			</table>
-  			<div class="btn-group btn-group-sm pull-right">
- 				 <button type="button" class="btn btn-secondary" onclick="flightReserve(${sessionScope.principal.id})">예약하기</button>
-  				<a href="index.jsp"><button type="button" class="btn btn-secondary" >취소</button></a>
-			</div>
+			
 		</div>
 	</div>
 	<!-- start footer Area -->
@@ -314,10 +239,9 @@
 	<script>
 				function go(depPlandTime, arrPlandTime, charge, vihicleId, grade){
 						var goData = {
-								personnel: ${flightSearch.personnel},
 								depPlandTime: depPlandTime,
 								arrPlandTime: arrPlandTime,
-								charge: charge * ${flightSearch.personnel},
+								charge: charge,
 								vihicleId: vihicleId,
 								grade: grade
 						}
@@ -327,7 +251,6 @@
 												
 						var goSelect = '<tr id="go__flight">';
 						goSelect += '<td>가는 편</td>';
-						goSelect += '<td id="go__depTime">'+goData.personnel+'</td>';
 						goSelect += '<td id="go__depTime">'+goData.depPlandTime+'</td>';
 						goSelect += '<td id="go__arrTime">'+goData.arrPlandTime+'</td>';
 						goSelect += '<td id="go__vihicleId">'+goData.vihicleId+'</td>';
@@ -341,10 +264,9 @@
 
 					function back(depPlandTime, arrPlandTime, charge, vihicleId, grade){
 						var backData = {
-								personnel: ${flightSearch.personnel},
 								depPlandTime: depPlandTime,
 								arrPlandTime: arrPlandTime,
-								charge: charge *${flightSearch.personnel},
+								charge: charge,
 								vihicleId: vihicleId,
 								grade: grade
 						}
@@ -354,7 +276,6 @@
 						
 						var backSelect = '<tr id="back__flight">';
 						backSelect += '<td>오는 편</td>';
-						backSelect += '<td id="back__depTime">'+backData.personnel+'</td>';
 						backSelect += '<td id="back__depTime">'+backData.depPlandTime+'</td>';
 						backSelect += '<td id="back__arrTime">'+backData.arrPlandTime+'</td>';
 						backSelect += '<td id="back__vihicleId">'+backData.vihicleId+'</td>';
@@ -378,12 +299,8 @@
 						vihicleId: document.getElementById('go__vihicleId').innerText,
 						grade: document.getElementById('go__grade').innerText,
 						charge: document.getElementById('go__charge').innerText
-					}
+					};
 
-					data.push(goData);
-					console.log(goData);
-					
-					<c:if test="${back != null}">
 					var backData = {
 							userId: userId,
 							personnel: ${flightSearch.personnel},
@@ -394,12 +311,13 @@
 							vihicleId: document.getElementById('back__vihicleId').innerText,
 							grade: document.getElementById('back__grade').innerText,
 							charge: document.getElementById('back__charge').innerText
-						}
+						};
 
-						data.push(backData);
-						console.log(backData);
-					</c:if>
+					data.push(goData);
+					data.push(backData);
 					
+					console.log(goData);
+					console.log(backData);
 					console.log(data);
 				
 					$.ajax({
@@ -409,11 +327,7 @@
 						contentType : "application/json; charset=utf-8",
 						dataType : "json"
 					}).done(function(result){
-						if(result.statusCode == 1){
-							location.href = "index.jsp";
-						} else {
-							alert("항공권 예약에 실패하셨습니다.");
-						}
+						
 
 					});
 				}

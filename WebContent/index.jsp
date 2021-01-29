@@ -81,7 +81,7 @@
 							</c:otherwise>
 						</c:choose>
 						<li><a href="#">항공권 예매</a></li>
-						<li><a href="#">예약 조회</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약 조회</a></li>
 						<li><a href="#">항공편 현황</a></li>
 					</ul>
 				</nav>
