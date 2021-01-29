@@ -119,6 +119,8 @@ public class BookController extends HttpServlet {
 				JsonObject back = (JsonObject) jsonArray.get(1); 
 				SaveReqDto goReqDto = gson.fromJson(go, SaveReqDto.class);
 				SaveReqDto backReqDto = gson.fromJson(back, SaveReqDto.class);
+				System.out.println("go : " + goReqDto);
+				System.out.println("back : " + backReqDto);
 				int goResult = bookService.예약하기(goReqDto);
 				int backResult = bookService.예약하기(backReqDto);
 				
@@ -151,13 +153,16 @@ public class BookController extends HttpServlet {
 		} else if (cmd.equals("bookList")) {
 			HttpSession session = request.getSession();
 			User principal = (User)session.getAttribute("principal");
-			List<Book> bookList = bookService.예약조회(principal.getId());
 			
-			request.setAttribute("bookList", bookList);
-			
-			RequestDispatcher dis = request.getRequestDispatcher("book/bookList.jsp");
-			dis.forward(request, response);
-			
+			if(principal != null) {
+				List<Book> bookList = bookService.예약조회(principal.getId());
+				request.setAttribute("bookList", bookList);			
+				RequestDispatcher dis = request.getRequestDispatcher("book/bookList.jsp");
+				dis.forward(request, response);
+			} else {
+				RequestDispatcher dis = request.getRequestDispatcher("user/loginForm.jsp");
+				dis.forward(request, response);
+			}
 		}
 	}
 

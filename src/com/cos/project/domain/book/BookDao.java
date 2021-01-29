@@ -12,14 +12,14 @@ import com.cos.project.domain.user.User;
 
 public class BookDao {
 	
-	public List<Book> findById(int id){
-		String sql = "SELECT id, userId, personnel, depAirportNm, arrAirportNm, depPlandTime, arrPlandTime, vihicleId, grade, charge FROM book WHERE id=?"; 
+	public List<Book> findById(int userId){
+		String sql = "SELECT id, userId, personnel, depAirportNm, arrAirportNm, depPlandTime, arrPlandTime, vihicleId, grade, charge FROM book WHERE userId=?"; 
 		Connection conn = DBConn.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, id);
+			pstmt.setInt(1, userId);
 			rs=pstmt.executeQuery();
 			List<Book> bookList = new ArrayList<>();
 			while(rs.next()) {

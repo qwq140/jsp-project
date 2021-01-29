@@ -327,7 +327,7 @@
 												
 						var goSelect = '<tr id="go__flight">';
 						goSelect += '<td>가는 편</td>';
-						goSelect += '<td id="go__depTime">'+goData.personnel+'</td>';
+						goSelect += '<td id="go__personnel">'+goData.personnel+'</td>';
 						goSelect += '<td id="go__depTime">'+goData.depPlandTime+'</td>';
 						goSelect += '<td id="go__arrTime">'+goData.arrPlandTime+'</td>';
 						goSelect += '<td id="go__vihicleId">'+goData.vihicleId+'</td>';
@@ -354,7 +354,7 @@
 						
 						var backSelect = '<tr id="back__flight">';
 						backSelect += '<td>오는 편</td>';
-						backSelect += '<td id="back__depTime">'+backData.personnel+'</td>';
+						backSelect += '<td id="back__personnel">'+backData.personnel+'</td>';
 						backSelect += '<td id="back__depTime">'+backData.depPlandTime+'</td>';
 						backSelect += '<td id="back__arrTime">'+backData.arrPlandTime+'</td>';
 						backSelect += '<td id="back__vihicleId">'+backData.vihicleId+'</td>';

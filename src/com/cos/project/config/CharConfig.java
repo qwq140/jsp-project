@@ -21,7 +21,7 @@ public class CharConfig implements Filter{
 		HttpServletResponse response = (HttpServletResponse) resp;
 		
 		request.setCharacterEncoding("utf-8");
-		//response.setContentType("text/html; charset=utf-8");
+		response.setContentType("text/html; charset=utf-8");
 		
 		// requset 한글 확인
 //		String username = request.getParameter("username");

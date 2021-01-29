@@ -18,7 +18,7 @@ public class BookService {
 		return bookDao.save(dto);
 	}
 	
-	public List<Book> 예약조회(int id){
-		return bookDao.findById(id);
+	public List<Book> 예약조회(int userId){
+		return bookDao.findById(userId);
 	}
 }

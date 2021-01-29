@@ -1,12 +1,13 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
+
 <!-- Mobile Specific Meta -->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,6 +23,11 @@
 <meta charset="UTF-8">
 <!-- Site Title -->
 <title>Travel</title>
+
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
@@ -77,15 +83,18 @@
 							<c:when test="${sessionScope.principal != null }">
 								<li><a href="<%=request.getContextPath()%>/user?cmd=logout">로그아웃</a></li>
 								<li class="menu-has-children"><a href="">회원정보</a>
-				            		<ul>
-				              			<li><a href="<%=request.getContextPath()%>/user?cmd=infoForm">회원정보보기</a></li>
-				              			<li><a href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보변경</a></li>
-				            		</ul>
-				          		</li>
+									<ul>
+										<li><a
+											href="<%=request.getContextPath()%>/user?cmd=infoForm">회원정보보기</a></li>
+										<li><a
+											href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보변경</a></li>
+									</ul></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="<%=request.getContextPath()%>/user?cmd=loginForm">로그인</a></li>
-								<li><a href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
+								<li><a
+									href="<%=request.getContextPath()%>/user?cmd=loginForm">로그인</a></li>
+								<li><a
+									href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
 							</c:otherwise>
 						</c:choose>
 						<li><a href="#">항공권 예매</a></li>
@@ -115,7 +124,44 @@
 
 	<div class="content">
 		<div class="container">
-			
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th>인원</th>
+						<th>출발지</th>
+						<th>도착지</th>
+						<th>출발시간</th>
+						<th>도착시간</th>
+						<th>항공편</th>
+						<th>좌석등급</th>
+						<th>가격</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="item" items="${bookList }">
+						<tr>
+							<fmt:parseDate value="${item.depPlandTime}" var="depPlandTime"
+								pattern="yyyyMMddHHmm" />
+							<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+								value="${depPlandTime }" var="depPlandTime" />
+							<fmt:parseDate value="${item.arrPlandTime}" var="arrPlandTime"
+								pattern="yyyyMMddHHmm" />
+							<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+								value="${arrPlandTime }" var="arrPlandTime" />
+							<td>${item.personnel }</td>
+							<td>${item.depAirportNm }</td>
+							<td>${item.arrAirportNm }</td>
+							<td>${depPlandTime }</td>
+							<td>${arrPlandTime }</td>
+							<td>${item.vihicleId }</td>
+							<td>${item.grade }</td>
+							<td>${item.charge }</td>
+							<td><button type="button"
+									class="btn btn-outline-secondary btn-sm" id="payment_${item.id }" onclick="payment()">결제</button></td>
+					</c:forEach>
+				</tbody>
+			</table>
 		</div>
 	</div>
 	<!-- start footer Area -->
@@ -219,6 +265,38 @@
 	</footer>
 	<!-- End footer Area -->
 
+	<script>
+		function payment() {
+			var IMP = window.IMP; // 생략가능
+			IMP.init('imp39401762'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+			IMP.request_pay({
+				pg : 'inicis', // version 1.1.0부터 지원.
+				pay_method : 'card',
+				merchant_uid : 'merchant_' + new Date().getTime(),
+				name : '주문명:결제테스트',
+				amount : 1000,
+				buyer_email : 'iamport@siot.do',
+				buyer_name : '구매자이름',
+				buyer_tel : '010-1234-5678',
+				buyer_addr : '서울특별시 강남구 삼성동',
+				buyer_postcode : '123-456',
+				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+			}, function(rsp) {
+				if (rsp.success) {
+					var msg = '결제가 완료되었습니다.';
+					msg += '고유ID : ' + rsp.imp_uid;
+					msg += '상점 거래ID : ' + rsp.merchant_uid;
+					msg += '결제 금액 : ' + rsp.paid_amount;
+					msg += '카드 승인번호 : ' + rsp.apply_num;
+				} else {
+					var msg = '결제에 실패하였습니다.';
+					msg += '에러내용 : ' + rsp.error_msg;
+				}
+				alert(msg);
+			});
+		}
+	</script>
+
 	<script src="js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="js/popper.min.js"></script>
 	<script src="js/vendor/bootstrap.min.js"></script>
@@ -236,103 +314,5 @@
 	<script src="js/main.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
-	<script>
-				function go(depPlandTime, arrPlandTime, charge, vihicleId, grade){
-						var goData = {
-								depPlandTime: depPlandTime,
-								arrPlandTime: arrPlandTime,
-								charge: charge,
-								vihicleId: vihicleId,
-								grade: grade
-						}
-						console.log(goData);
-
-						$("#go__flight").remove();
-												
-						var goSelect = '<tr id="go__flight">';
-						goSelect += '<td>가는 편</td>';
-						goSelect += '<td id="go__depTime">'+goData.depPlandTime+'</td>';
-						goSelect += '<td id="go__arrTime">'+goData.arrPlandTime+'</td>';
-						goSelect += '<td id="go__vihicleId">'+goData.vihicleId+'</td>';
-						goSelect += '<td id="go__grade">'+goData.grade+'</td>';
-						goSelect += '<td id="go__charge">'+goData.charge+'</td>';
-						goSelect += '</tr>';
-
-						$("#select__list").prepend(goSelect);
-						
-					}	
-
-					function back(depPlandTime, arrPlandTime, charge, vihicleId, grade){
-						var backData = {
-								depPlandTime: depPlandTime,
-								arrPlandTime: arrPlandTime,
-								charge: charge,
-								vihicleId: vihicleId,
-								grade: grade
-						}
-						console.log(backData);
-
-						$("#back__flight").remove();
-						
-						var backSelect = '<tr id="back__flight">';
-						backSelect += '<td>오는 편</td>';
-						backSelect += '<td id="back__depTime">'+backData.depPlandTime+'</td>';
-						backSelect += '<td id="back__arrTime">'+backData.arrPlandTime+'</td>';
-						backSelect += '<td id="back__vihicleId">'+backData.vihicleId+'</td>';
-						backSelect += '<td id="back__grade">'+backData.grade+'</td>';
-						backSelect += '<td id="back__charge">'+backData.charge+'</td>';
-						backSelect += '</tr>';
-
-						$("#select__list").prepend(backSelect);
-				}
-
-				function flightReserve(userId){
-					var data = [];
-					
-					var goData = {
-						userId: userId,
-						personnel: ${flightSearch.personnel},
-						depAirportNm: '${flightSearch.depAirportNm}',
-						arrAirportNm: '${flightSearch.arrAirportNm}',
-						depPlandTime: document.getElementById('go__depTime').innerText,
-						arrPlandTime: document.getElementById('go__arrTime').innerText,
-						vihicleId: document.getElementById('go__vihicleId').innerText,
-						grade: document.getElementById('go__grade').innerText,
-						charge: document.getElementById('go__charge').innerText
-					};
-
-					var backData = {
-							userId: userId,
-							personnel: ${flightSearch.personnel},
-							depAirportNm: '${flightSearch.arrAirportNm}',
-							arrAirportNm: '${flightSearch.depAirportNm}',
-							depPlandTime: document.getElementById('back__depTime').innerText,
-							arrPlandTime: document.getElementById('back__arrTime').innerText,
-							vihicleId: document.getElementById('back__vihicleId').innerText,
-							grade: document.getElementById('back__grade').innerText,
-							charge: document.getElementById('back__charge').innerText
-						};
-
-					data.push(goData);
-					data.push(backData);
-					
-					console.log(goData);
-					console.log(backData);
-					console.log(data);
-				
-					$.ajax({
-						type : "post",
-						url : "/project/book?cmd=book",
-						data : JSON.stringify(data),
-						contentType : "application/json; charset=utf-8",
-						dataType : "json"
-					}).done(function(result){
-						
-
-					});
-				}
-
-				
-  		</script>
 </body>
 </html>
