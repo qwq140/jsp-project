@@ -1,8 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
@@ -77,19 +77,23 @@
 							<c:when test="${sessionScope.principal != null }">
 								<li><a href="<%=request.getContextPath()%>/user?cmd=logout">로그아웃</a></li>
 								<li class="menu-has-children"><a href="">회원정보</a>
-				            		<ul>
-				              			<li><a href="<%=request.getContextPath()%>/user?cmd=infoForm">회원정보보기</a></li>
-				              			<li><a href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보변경</a></li>
-				            		</ul>
-				          		</li>
+									<ul>
+										<li><a
+											href="<%=request.getContextPath()%>/user?cmd=infoForm">회원정보보기</a></li>
+										<li><a
+											href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보변경</a></li>
+									</ul></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="<%=request.getContextPath()%>/user?cmd=loginForm">로그인</a></li>
-								<li><a href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
+								<li><a
+									href="<%=request.getContextPath()%>/user?cmd=loginForm">로그인</a></li>
+								<li><a
+									href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
 							</c:otherwise>
 						</c:choose>
-						<li><a href="#">항공권 예매</a></li>
-						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약 조회</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookForm">항공권 예매</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약
+								조회</a></li>
 					</ul>
 				</nav>
 				<!-- #nav-menu-container -->
@@ -105,7 +109,7 @@
 		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
-					<h1 class="text-white">항공편</h1>
+					<h1 class="text-white">항공권 예매</h1>
 				</div>
 			</div>
 		</div>
@@ -114,81 +118,126 @@
 
 	<div class="content">
 		<div class="container">
+			<form class="form-inline"
+				action="<%=request.getContextPath()%>/book?cmd=flightSearch"
+				method="post">
+				<input type="hidden" name="userId"
+					value="${sessionScope.principal.id }"> <input type="text"
+					class="form-control" name="depAirportNm" placeholder="출발지"
+					onfocus="this.placeholder = ''" onblur="this.placeholder = '출발지 '" required>
+				<input type="text" class="form-control" name="arrAirportNm"
+					placeholder="도착지 " onfocus="this.placeholder = ''"
+					onblur="this.placeholder = '도착지 '" required> <input type="text"
+					class="form-control date-picker" name="depPlandTime"
+					placeholder="가는날 " onfocus="this.placeholder = ''"
+					onblur="this.placeholder = '가는날 '" required> <input type="text"
+					class="form-control date-picker" name="arrPlandTime"
+					placeholder="오는날 " onfocus="this.placeholder = ''"
+					onblur="this.placeholder = '오는날 '"> <input type="number"
+					min="1" max="20" class="form-control" name="personnel"
+					placeholder="인원" onfocus="this.placeholder = ''"
+					onblur="this.placeholder = '인원 '" required> <input type="submit"
+					value="검색" class="btn btn-secondary btn-sm" style='height:38px'>
+			</form>
+			<br />
+			<br />
 			<c:if test="${go ne null }">
-			<div>가는 편 </div>
-			<br/>
-			<table class="table">
-    			<thead class="thead-light">
-      				<tr>
-        				<th>출도착시간</th>
-        				<th>Economy</th>
-        				<th>Prestige</th>
-        				<th>항공편id</th>
-      				</tr>
-    			</thead>
-   				 <tbody>
-   				 	<c:forEach var="item" items="${go }">
-   				 		<fmt:parseDate value="${item.depPlandTime}" var="depPlandTime" pattern="yyyyMMddHHmm"/>
-    					<fmt:formatDate pattern="HH:mm" value="${depPlandTime }" var="depPlandTime"/>
-    					<fmt:parseDate value="${item.arrPlandTime}" var="arrPlandTime" pattern="yyyyMMddHHmm"/>
-    					<fmt:formatDate pattern="HH:mm" value="${arrPlandTime }" var="arrPlandTime"/>
-   				 		<tr>
-   				 			<td>${depPlandTime } ~ ${arrPlandTime }</td>
-   				 			<td><input type="radio" name="goFlightCheck" onclick="go(${item.depPlandTime},${item.arrPlandTime },${item.economyCharge },'${item.vihicleId }','economy')"> <fmt:formatNumber value="${item.economyCharge }" pattern="#,###" /> KRW</td>
-   				 			<td><input type="radio" name="goFlightCheck" onclick="go(${item.depPlandTime},${item.arrPlandTime },${item.prestigeCharge }, '${item.vihicleId }','prestige')"> <fmt:formatNumber value="${item.prestigeCharge }" pattern="#,###" /> KRW</td>
-   				 			<td>${item.vihicleId }</td>  				 			
-   				 	</c:forEach>    
-    			</tbody>
-  			</table>
-  			</c:if>
-  			
-  			
+				<div>가는 편</div>
+				<br />
+				<table class="table">
+					<thead class="thead-light">
+						<tr>
+							<th>출도착시간</th>
+							<th>Economy</th>
+							<th>Prestige</th>
+							<th>항공편id</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="item" items="${go }">
+							<fmt:parseDate value="${item.depPlandTime}" var="depPlandTime"
+								pattern="yyyyMMddHHmm" />
+							<fmt:formatDate pattern="HH:mm" value="${depPlandTime }"
+								var="depPlandTime" />
+							<fmt:parseDate value="${item.arrPlandTime}" var="arrPlandTime"
+								pattern="yyyyMMddHHmm" />
+							<fmt:formatDate pattern="HH:mm" value="${arrPlandTime }"
+								var="arrPlandTime" />
+							<tr>
+								<td>${depPlandTime }~${arrPlandTime }</td>
+								<td><input type="radio" name="goFlightCheck"
+									onclick="go(${item.depPlandTime},${item.arrPlandTime },${item.economyCharge },'${item.vihicleId }','economy')">
+									<fmt:formatNumber value="${item.economyCharge }"
+										pattern="#,###" /> KRW</td>
+								<td><input type="radio" name="goFlightCheck"
+									onclick="go(${item.depPlandTime},${item.arrPlandTime },${item.prestigeCharge }, '${item.vihicleId }','prestige')">
+									<fmt:formatNumber value="${item.prestigeCharge }"
+										pattern="#,###" /> KRW</td>
+								<td>${item.vihicleId }</td>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:if>
+
+
 			<c:if test="${back ne null }">
-			<div>오는 편 </div>
-			<br/>
+				<div>오는 편</div>
+				<br />
+				<table class="table">
+					<thead class="thead-light">
+						<tr>
+							<th>출도착시간</th>
+							<th>Economy</th>
+							<th>Prestige</th>
+							<th>항공편id</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="item" items="${back }">
+							<fmt:parseDate value="${item.depPlandTime}" var="depPlandTime"
+								pattern="yyyyMMddHHmm" />
+							<fmt:formatDate pattern="HH:mm" value="${depPlandTime }"
+								var="depPlandTime" />
+							<fmt:parseDate value="${item.arrPlandTime}" var="arrPlandTime"
+								pattern="yyyyMMddHHmm" />
+							<fmt:formatDate pattern="HH:mm" value="${arrPlandTime }"
+								var="arrPlandTime" />
+							<tr>
+								<td>${depPlandTime }~${arrPlandTime }</td>
+								<td><input type="radio" name="backFlightCheck"
+									onclick="back(${item.depPlandTime},${item.arrPlandTime },${item.economyCharge },'${item.vihicleId }','economy')">
+									<fmt:formatNumber value="${item.economyCharge }"
+										pattern="#,###" /> KRW</td>
+								<td><input type="radio" name="backFlightCheck"
+									onclick="back(${item.depPlandTime},${item.arrPlandTime },${item.prestigeCharge }, '${item.vihicleId }','prestige')">
+									<fmt:formatNumber value="${item.prestigeCharge }"
+										pattern="#,###" /> KRW</td>
+								<td>${item.vihicleId }</td>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:if>
 			<table class="table">
-    			<thead class="thead-light">
-      				<tr>
-        				<th>출도착시간</th>
-        				<th>Economy</th>
-        				<th>Prestige</th>
-        				<th>항공편id</th>
-      				</tr>
-    			</thead>
-   				 <tbody>
-   				 	<c:forEach var="item" items="${back }">
-   				 		<fmt:parseDate value="${item.depPlandTime}" var="depPlandTime" pattern="yyyyMMddHHmm"/>
-    					<fmt:formatDate pattern="HH:mm" value="${depPlandTime }" var="depPlandTime"/>
-    					<fmt:parseDate value="${item.arrPlandTime}" var="arrPlandTime" pattern="yyyyMMddHHmm"/>
-    					<fmt:formatDate pattern="HH:mm" value="${arrPlandTime }" var="arrPlandTime"/>
-   				 		<tr>
-   				 			<td>${depPlandTime } ~ ${arrPlandTime }</td>
-   				 			<td><input type="radio" name="backFlightCheck" onclick="back(${item.depPlandTime},${item.arrPlandTime },${item.economyCharge },'${item.vihicleId }','economy')"> <fmt:formatNumber value="${item.economyCharge }" pattern="#,###" /> KRW</td>
-   				 			<td><input type="radio" name="backFlightCheck" onclick="back(${item.depPlandTime},${item.arrPlandTime },${item.prestigeCharge }, '${item.vihicleId }','prestige')"> <fmt:formatNumber value="${item.prestigeCharge }" pattern="#,###" /> KRW</td>
-   				 			<td>${item.vihicleId }</td>  				 			
-   				 	</c:forEach>    
-    			</tbody>
-  			</table>
-  			</c:if>
-  			<table class="table">
-    			<thead class="thead-light">
-      				<tr>
-      					<th></th>
-      					<th>인원</th>
-        				<th>출발시간</th>
-        				<th>도착시간</th>
-        				<th>항공편</th>
-        				<th>좌석등급</th>
-        				<th>가격</th>
-      				</tr>
-    			</thead>
-   				 <tbody id="select__list">
-   				 	
-    			</tbody>
-  			</table>
-  			<div class="btn-group btn-group-sm pull-right">
- 				 <button type="button" class="btn btn-secondary" onclick="flightReserve(${sessionScope.principal.id})">예약하기</button>
-  				<a href="index.jsp"><button type="button" class="btn btn-secondary" >취소</button></a>
+				<thead class="thead-light">
+					<tr>
+						<th></th>
+						<th>인원</th>
+						<th>출발시간</th>
+						<th>도착시간</th>
+						<th>항공편</th>
+						<th>좌석등급</th>
+						<th>가격</th>
+					</tr>
+				</thead>
+				<tbody id="select__list">
+
+				</tbody>
+			</table>
+			<div class="btn-group btn-group-sm pull-right">
+				<button type="button" class="btn btn-secondary"
+					onclick="flightReserve(${sessionScope.principal.id})">예약하기</button>
+				<a href="index.jsp"><button type="button"
+						class="btn btn-secondary">취소</button></a>
 			</div>
 		</div>
 	</div>

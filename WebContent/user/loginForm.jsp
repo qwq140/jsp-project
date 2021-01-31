@@ -72,7 +72,7 @@
 					<ul class="nav-menu">
 						<li><a href="<%=request.getContextPath()%>/user?cmd=loginForm">로그인</a></li>
 						<li><a href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
-						<li><a href="#">항공권 예매</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookForm">항공권 예매</a></li>
 						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약 조회</a></li>
 					</ul>
 				</nav>

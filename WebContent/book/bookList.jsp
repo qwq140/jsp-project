@@ -97,7 +97,7 @@
 									href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
 							</c:otherwise>
 						</c:choose>
-						<li><a href="#">항공권 예매</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookForm">항공권 예매</a></li>
 						<li><a href="<%=request.getContextPath()%>/user?cmd=bookForm">예약 조회</a></li>
 					</ul>
 				</nav>

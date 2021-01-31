@@ -63,7 +63,7 @@ public class BookController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String cmd = request.getParameter("cmd");
 		BookService bookService = new BookService();
-		if (cmd.equals("bookForm")) {
+		if (cmd.equals("flightSearch")) {
 			HttpSession session = request.getSession();
 			User principal = (User)session.getAttribute("principal");
 			if(principal == null) {
@@ -166,6 +166,9 @@ public class BookController extends HttpServlet {
 				RequestDispatcher dis = request.getRequestDispatcher("user/loginForm.jsp");
 				dis.forward(request, response);
 			}
+		} else if (cmd.equals("bookForm")) {
+			RequestDispatcher dis = request.getRequestDispatcher("book/bookForm.jsp");
+			dis.forward(request, response);
 		}
 	}
 

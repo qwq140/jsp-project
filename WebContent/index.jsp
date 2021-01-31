@@ -80,7 +80,7 @@
 								<li><a href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
 							</c:otherwise>
 						</c:choose>
-						<li><a href="#">항공권 예매</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookForm">항공권 예매</a></li>
 						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약 조회</a></li>
 					</ul>
 				</nav>
@@ -108,17 +108,11 @@
 						<li class="nav-item"><a class="nav-link active"
 							id="flight-tab" data-toggle="tab" href="#flight" role="tab"
 							aria-controls="flight" aria-selected="true">Flights</a></li>
-						<li class="nav-item"><a class="nav-link" id="hotel-tab"
-							data-toggle="tab" href="#hotel" role="tab" aria-controls="hotel"
-							aria-selected="false">Hotels</a></li>
-						<li class="nav-item"><a class="nav-link" id="holiday-tab"
-							data-toggle="tab" href="#holiday" role="tab"
-							aria-controls="holiday" aria-selected="false">Holidays</a></li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
 						<div class="tab-pane fade show active" id="flight" role="tabpanel"
 							aria-labelledby="flight-tab">
-							<form class="form-wrap" action = "<%=request.getContextPath()%>/book?cmd=bookForm" method="post">
+							<form class="form-wrap" action = "<%=request.getContextPath()%>/book?cmd=flightSearch" method="post">
 								<input type="hidden"  name="userId" value = "${sessionScope.principal.id }">
 								<input type="text" class="form-control" name="depAirportNm"
 									placeholder="출발지" onfocus="this.placeholder = ''"
@@ -138,58 +132,6 @@
 									onblur="this.placeholder = '인원 '">
 									<input type="submit" value="조회"
 										class="primary-btn text-uppercase">
-							</form>
-						</div>
-						<div class="tab-pane fade" id="hotel" role="tabpanel"
-							aria-labelledby="hotel-tab">
-							<form class="form-wrap">
-								<input type="text" class="form-control" name="name"
-									placeholder="From " onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'From '"> <input type="text"
-									class="form-control" name="to" placeholder="To "
-									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'To '"> <input type="text"
-									class="form-control date-picker" name="start"
-									placeholder="Start " onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Start '"> <input
-									type="text" class="form-control date-picker" name="return"
-									placeholder="Return " onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Return '"> <input
-									type="number" min="1" max="20" class="form-control"
-									name="adults" placeholder="Adults "
-									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Adults '"> <input
-									type="number" min="1" max="20" class="form-control"
-									name="child" placeholder="Child "
-									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Child '"> <a href="#"
-									class="primary-btn text-uppercase">Search Hotels</a>
-							</form>
-						</div>
-						<div class="tab-pane fade" id="holiday" role="tabpanel"
-							aria-labelledby="holiday-tab">
-							<form class="form-wrap">
-								<input type="text" class="form-control" name="name"
-									placeholder="From " onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'From '"> <input type="text"
-									class="form-control" name="to" placeholder="To "
-									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'To '"> <input type="text"
-									class="form-control date-picker" name="start"
-									placeholder="Start " onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Start '"> <input
-									type="text" class="form-control date-picker" name="return"
-									placeholder="Return " onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Return '"> <input
-									type="number" min="1" max="20" class="form-control"
-									name="adults" placeholder="Adults "
-									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Adults '"> <input
-									type="number" min="1" max="20" class="form-control"
-									name="child" placeholder="Child "
-									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Child '"> <a href="#"
-									class="primary-btn text-uppercase">Search Holidays</a>
 							</form>
 						</div>
 					</div>

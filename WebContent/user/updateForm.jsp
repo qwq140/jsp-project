@@ -77,7 +77,7 @@
 								<li><a href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보변경</a></li>
 							</ul>
 						</li>
-						<li><a href="#">항공권 예매</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookForm">항공권 예매</a></li>
 						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약 조회</a></li>
 					</ul>
 				</nav>
@@ -94,7 +94,7 @@
 		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
-					<h1 class="text-white">회원정보보기</h1>
+					<h1 class="text-white">회원정보변경</h1>
 				</div>
 			</div>
 		</div>
