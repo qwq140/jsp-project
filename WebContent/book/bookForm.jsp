@@ -89,8 +89,7 @@
 							</c:otherwise>
 						</c:choose>
 						<li><a href="#">항공권 예매</a></li>
-						<li><a href="#">예약 조회</a></li>
-						<li><a href="#">항공편 조회</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약 조회</a></li>
 					</ul>
 				</nav>
 				<!-- #nav-menu-container -->
@@ -381,7 +380,6 @@
 					}
 
 					data.push(goData);
-					console.log(goData);
 					
 					<c:if test="${back != null}">
 					var backData = {
@@ -399,9 +397,7 @@
 						data.push(backData);
 						console.log(backData);
 					</c:if>
-					
-					console.log(data);
-				
+							
 					$.ajax({
 						type : "post",
 						url : "/project/book?cmd=book",

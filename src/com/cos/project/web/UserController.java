@@ -12,12 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.cos.project.domain.CommonRespDto;
 import com.cos.project.domain.user.User;
 import com.cos.project.domain.user.dto.JoinReqDto;
 import com.cos.project.domain.user.dto.LoginReqDto;
 import com.cos.project.domain.user.dto.UpdateReqDto;
 import com.cos.project.service.UserService;
 import com.cos.project.util.Script;
+import com.google.gson.Gson;
 import com.mysql.cj.x.protobuf.MysqlxCrud.Update;
 
 @WebServlet("/user")
@@ -48,14 +50,16 @@ public class UserController extends HttpServlet {
 		} else if (cmd.equals("join")){
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
+			String name = request.getParameter("name");
 			String email = request.getParameter("email");
-			String address = request.getParameter("address");
+			String phone = request.getParameter("phone");
 			
 			JoinReqDto dto = new JoinReqDto();
 			dto.setUsername(username);
 			dto.setPassword(password);
+			dto.setName(name);
 			dto.setEmail(email);
-			dto.setAddress(address);
+			dto.setPhone(phone);
 			
 			System.out.println("JoinReqDto : "+ dto);
 			
@@ -101,20 +105,39 @@ public class UserController extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("id"));
 			String password = request.getParameter("password");
 			String email = request.getParameter("email");
-			String address = request.getParameter("address");
+			String name = request.getParameter("name");
+			String phone = request.getParameter("phone");
 			
 			UpdateReqDto dto = new UpdateReqDto();
 			dto.setId(id);
 			dto.setPassword(password);
+			dto.setName(name);
 			dto.setEmail(email);
-			dto.setAddress(address);
+			dto.setPhone(phone);
 			
 			int result = userService.회원정보수정(dto);
 			if(result == 1) {
+				HttpSession session = request.getSession();
+				session.invalidate();
 				response.sendRedirect("index.jsp");
 			} else {
 				Script.back(response, "회원정보수정 실패");
 			}
+		} else if(cmd.equals("usernameCheck")) {
+			String username = request.getParameter("username");
+			int result = userService.유저네임중복체크(username);
+			
+			CommonRespDto<Object> commonRespDto = new CommonRespDto<>();
+			if(result == 1) {
+				commonRespDto.setStatusCode(1);
+			} else {
+				commonRespDto.setStatusCode(-1);
+			}
+			
+			Gson gson = new Gson();
+			String responseData = gson.toJson(commonRespDto);
+			System.out.println("responseData : " +responseData);
+			Script.responseData(response, responseData);
 		}
 	}
 

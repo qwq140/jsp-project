@@ -64,44 +64,52 @@ public class BookController extends HttpServlet {
 		String cmd = request.getParameter("cmd");
 		BookService bookService = new BookService();
 		if (cmd.equals("bookForm")) {
-			Map<String, String> result = MyUtils.getAirportId();
-			String depAirportId = result.get(request.getParameter("depAirportNm"));
-			String arrAirportId = result.get(request.getParameter("arrAirportNm"));
-			String depPlandTime = request.getParameter("depPlandTime");
-			String arrPlandTime = request.getParameter("arrPlandTime");
-			
-			int personnel = Integer.parseInt(request.getParameter("personnel"));
-			String depAirportNm = request.getParameter("depAirportNm");
-			String arrAirportNm = request.getParameter("arrAirportNm");
-			
-			SearchReqDto dto = new SearchReqDto();
-			dto.setDepAirportId(depAirportId);
-			dto.setArrAirportId(arrAirportId);
-			dto.setDepPlandTime(depPlandTime);
-			dto.setArrPlandTime(arrPlandTime);
-
-			System.out.println(dto);
-			
-			List<AirVO> go = ApiExplorer.getAirportJson(dto,"go");
-			List<AirVO> back = null;
-			if(!arrPlandTime.equals("")) {
-				back = ApiExplorer.getAirportJson(dto,"back");
+			HttpSession session = request.getSession();
+			User principal = (User)session.getAttribute("principal");
+			if(principal == null) {
+				RequestDispatcher dis = request.getRequestDispatcher("user/loginForm.jsp");
+				dis.forward(request, response);
+			} else {
+				Map<String, String> result = MyUtils.getAirportId();
+				String depAirportId = result.get(request.getParameter("depAirportNm"));
+				String arrAirportId = result.get(request.getParameter("arrAirportNm"));
+				String depPlandTime = request.getParameter("depPlandTime");
+				String arrPlandTime = request.getParameter("arrPlandTime");
 				
-			}
-			request.setAttribute("back", back);
-			
-			SearchRespDto searchRespDto = new SearchRespDto();
-			searchRespDto.setPersonnel(personnel);
-			searchRespDto.setDepAirportNm(depAirportNm);
-			searchRespDto.setArrAirportNm(arrAirportNm);
-			
-			System.out.println(searchRespDto);
-			
-			request.setAttribute("flightSearch", searchRespDto);
-			request.setAttribute("go", go);
+				int personnel = Integer.parseInt(request.getParameter("personnel"));
+				String depAirportNm = request.getParameter("depAirportNm");
+				String arrAirportNm = request.getParameter("arrAirportNm");
+				
+				SearchReqDto dto = new SearchReqDto();
+				dto.setDepAirportId(depAirportId);
+				dto.setArrAirportId(arrAirportId);
+				dto.setDepPlandTime(depPlandTime);
+				dto.setArrPlandTime(arrPlandTime);
 
-			RequestDispatcher dis = request.getRequestDispatcher("book/bookForm.jsp");
-			dis.forward(request, response);
+//				System.out.println(dto);
+				
+				List<AirVO> go = ApiExplorer.getAirportJson(dto,"go");
+				List<AirVO> back = null;
+				if(!arrPlandTime.equals("")) {
+					back = ApiExplorer.getAirportJson(dto,"back");
+					
+				}
+				
+				SearchRespDto searchRespDto = new SearchRespDto();
+				searchRespDto.setPersonnel(personnel);
+				searchRespDto.setDepAirportNm(depAirportNm);
+				searchRespDto.setArrAirportNm(arrAirportNm);
+				
+//				System.out.println(searchRespDto);
+				
+				request.setAttribute("flightSearch", searchRespDto);
+				request.setAttribute("go", go);
+				request.setAttribute("back", back);
+
+				RequestDispatcher dis = request.getRequestDispatcher("book/bookForm.jsp");
+				dis.forward(request, response);
+			}
+			
 
 		} else if(cmd.equals("book")) {
 			BufferedReader br = request.getReader();
@@ -114,7 +122,7 @@ public class BookController extends HttpServlet {
 //			System.out.println(jsonArray);
 			
 			CommonRespDto<Object> commonRespDto = new CommonRespDto<>();
-			if(jsonArray.size() > 1) {
+			if(jsonArray.size() == 2) { // 왕복의 경우
 				JsonObject go = (JsonObject) jsonArray.get(0);
 				JsonObject back = (JsonObject) jsonArray.get(1); 
 				SaveReqDto goReqDto = gson.fromJson(go, SaveReqDto.class);
@@ -130,7 +138,7 @@ public class BookController extends HttpServlet {
 				} else {
 					commonRespDto.setStatusCode(-1);
 				}
-			} else {
+			} else { // 편도의 경우
 				JsonObject go = (JsonObject) jsonArray.get(0);
 				SaveReqDto goReqDto = gson.fromJson(go, SaveReqDto.class);
 				int goResult = bookService.예약하기(goReqDto);
@@ -142,14 +150,9 @@ public class BookController extends HttpServlet {
 				}
 			}
 			
-			
-			
-			
 			String responseData = gson.toJson(commonRespDto);
 			System.out.println("responseData : " +responseData);
-			Script.responseData(response, responseData);
-			
-			
+			Script.responseData(response, responseData);		
 		} else if (cmd.equals("bookList")) {
 			HttpSession session = request.getSession();
 			User principal = (User)session.getAttribute("principal");

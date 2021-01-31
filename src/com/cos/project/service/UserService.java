@@ -25,4 +25,8 @@ public class UserService {
 	public int 회원정보수정 (UpdateReqDto dto) {
 		return userDao.update(dto);
 	}
+	
+	public int 유저네임중복체크(String username) {
+		return userDao.findByUsername(username);
+	}
 }

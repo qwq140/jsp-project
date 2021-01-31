@@ -78,8 +78,7 @@
 							</ul>
 						</li>
 						<li><a href="#">항공권 예매</a></li>
-						<li><a href="#">예약 조회</a></li>
-						<li><a href="#">항공편 조회</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약 조회</a></li>
 					</ul>
 				</nav>
 				<!-- #nav-menu-container -->
@@ -124,16 +123,22 @@
 											name="username" value="${sessionScope.principal.username }"
 											readonly>
 									</div>
-									<br /> <label for="username">email</label>
+									<label for="name">name</label>
+									<div class="form-group">
+										<input type="text" class="form-control" id="name"
+											name="name" value="${sessionScope.principal.name }"
+											readonly>
+									</div>
+									<label for="email">email</label>
 									<div class="form-group">
 										<input type="text" class="form-control" id="email"
 											name="email" value="${sessionScope.principal.email }"
 											readonly>
 									</div>
-									<br /> <label for="username">address</label>
+									 <label for="phone">phone</label>
 									<div class="form-group last mb-4">
-										<input type="text" class="form-control" id="address"
-											name="address" value="${sessionScope.principal.address }"
+										<input type="text" class="form-control" id="phone"
+											name="phone" value="${sessionScope.principal.phone }"
 											readonly>
 									</div>
 								</form>

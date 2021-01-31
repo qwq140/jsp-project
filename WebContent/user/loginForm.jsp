@@ -73,8 +73,7 @@
 						<li><a href="<%=request.getContextPath()%>/user?cmd=loginForm">로그인</a></li>
 						<li><a href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
 						<li><a href="#">항공권 예매</a></li>
-						<li><a href="#">예약 조회</a></li>
-						<li><a href="#">항공편 조회</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약 조회</a></li>
 					</ul>
 				</nav>
 				<!-- #nav-menu-container -->
@@ -115,12 +114,12 @@
 								<form action="<%=request.getContextPath()%>/user?cmd=login" method="post">
 									<div class="form-group first">
 										<label for="username">Username</label> <input type="text"
-											class="form-control" id="username" name="username">
+											class="form-control" id="username" name="username" required>
 
 									</div>
 									<div class="form-group last mb-4">
 										<label for="password">Password</label> <input type="password"
-											class="form-control" id="password" name="password">
+											class="form-control" id="password" name="password" required>
 
 									</div>
 

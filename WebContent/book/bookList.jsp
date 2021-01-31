@@ -98,8 +98,7 @@
 							</c:otherwise>
 						</c:choose>
 						<li><a href="#">항공권 예매</a></li>
-						<li><a href="#">예약 조회</a></li>
-						<li><a href="#">항공편 조회</a></li>
+						<li><a href="<%=request.getContextPath()%>/user?cmd=bookForm">예약 조회</a></li>
 					</ul>
 				</nav>
 				<!-- #nav-menu-container -->
@@ -156,9 +155,9 @@
 							<td>${arrPlandTime }</td>
 							<td>${item.vihicleId }</td>
 							<td>${item.grade }</td>
-							<td>${item.charge }</td>
+							<td><fmt:formatNumber value="${item.charge }" pattern="#,###" /> KRW</td>
 							<td><button type="button"
-									class="btn btn-outline-secondary btn-sm" id="payment_${item.id }" onclick="payment()">결제</button></td>
+									class="btn btn-outline-secondary btn-sm" id="payment_${item.id }" onclick="payment(${item.charge})">결제</button></td>
 					</c:forEach>
 				</tbody>
 			</table>
@@ -266,20 +265,19 @@
 	<!-- End footer Area -->
 
 	<script>
-		function payment() {
+		function payment(charge) {
 			var IMP = window.IMP; // 생략가능
+			var charge = charge;
 			IMP.init('imp39401762'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 			IMP.request_pay({
 				pg : 'inicis', // version 1.1.0부터 지원.
 				pay_method : 'card',
 				merchant_uid : 'merchant_' + new Date().getTime(),
 				name : '주문명:결제테스트',
-				amount : 1000,
-				buyer_email : 'iamport@siot.do',
-				buyer_name : '구매자이름',
-				buyer_tel : '010-1234-5678',
-				buyer_addr : '서울특별시 강남구 삼성동',
-				buyer_postcode : '123-456',
+				amount : charge,
+				buyer_email : '${sessionScope.principal.email}',
+				buyer_name : '${sessionScope.principal.name}',
+				buyer_tel : '${sessionScope.principal.phone}',
 				m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 			}, function(rsp) {
 				if (rsp.success) {

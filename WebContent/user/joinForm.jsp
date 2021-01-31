@@ -75,8 +75,7 @@
 						<li><a href="<%=request.getContextPath()%>/user?cmd=loginForm">로그인</a></li>
 						<li><a href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
 						<li><a href="#">항공권 예매</a></li>
-						<li><a href="#">예약 조회</a></li>
-						<li><a href="#">항공편 조회</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약 조회</a></li>
 					</ul>
 				</nav>
 				<!-- #nav-menu-container -->
@@ -116,20 +115,26 @@
 										<input type="text" class="form-control" id="username"
 											name="username" required>
 									</div>
-									<div class="form-group first">
+									<div class="check_front" id="username_check"></div>
+									<div class="form-group">
 										<label for="password">password</label>
 										<input type="password" class="form-control" id="password"
 											name="password"  required>
 									</div>
 									<div class="form-group">
-									<label for="password">email</label>
+									<label for="name">name</label>
+										<input type="text" class="form-control" id="name"
+											name="name"  required>
+									</div>
+									<div class="form-group">
+									<label for="email">email</label>
 										<input type="text" class="form-control" id="email"
 											name="email"  required>
 									</div>
 									<div class="form-group last mb-4">
-									<label for="password">address</label>
-										<input type="text" class="form-control" id="address"
-											name="address" required>
+									<label for="phone">phone</label>
+										<input type="text" class="form-control" id="phone"
+											name="phone" required>
 									</div>
 
 									<div class="d-flex mb-5 align-items-center">
@@ -141,7 +146,7 @@
 									</div>
 
 									<input type="submit" value="Register"
-										class="btn btn-pill text-white btn-block btn-primary">
+										class="btn btn-pill text-white btn-block btn-primary" id="reg_submit">
 
 									<span class="d-block text-center my-4 text-muted"> or
 										register with</span>
@@ -267,6 +272,7 @@
 		</div>
 	</footer>
 	<!-- End footer Area -->
+	
 	<script src="js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
@@ -285,6 +291,28 @@
 	<script src="js/main.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
+	<script>
+		// 아이디 유효성 검사 ( 1 = 중복,  0 = 중복x)
+		$('#username').blur(function(){
+			var username = $('#username').val();
+			$.ajax({
+				type : 'get',
+				url : '/project/user?cmd=usernameCheck&username='+username,
+				dataType:"json"				
+			}).done(function(data){
+				console.log(data.statusCode);
+				if(data.statusCode == 1){
+					$("#username_check").text("사용중인 아이디입니다");
+					$("#username_check").css("color", "red");
+					$("#reg_submit").attr("disabled", true);
+				} else {
+					$("#username_check").text("사용할 수 있는 아이디입니다");
+					$("#username_check").css("color","green");
+					$("#reg_submit").attr("disabled". false);
+				}
+			});
+		});
+	</script>
 
 
 </body>
