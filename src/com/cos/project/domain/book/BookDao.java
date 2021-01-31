@@ -11,18 +11,37 @@ import com.cos.project.domain.book.dto.SaveReqDto;
 import com.cos.project.domain.user.User;
 
 public class BookDao {
-	
-	public List<Book> findById(int userId){
-		String sql = "SELECT id, userId, personnel, depAirportNm, arrAirportNm, depPlandTime, arrPlandTime, vihicleId, grade, charge FROM book WHERE userId=?"; 
+
+	// 예약 취소
+	public int delete(int id) {
+		String sql = "DELETE FROM book WHERE id = ?";
+		Connection conn = DBConn.getConnection();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			int result = pstmt.executeUpdate();
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(conn, pstmt);
+		}
+		return -1;
+	}
+
+	// 예약조회
+	public List<Book> findById(int userId) {
+		String sql = "SELECT id, userId, personnel, depAirportNm, arrAirportNm, depPlandTime, arrPlandTime, vihicleId, grade, charge FROM book WHERE userId=?";
 		Connection conn = DBConn.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			pstmt=conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userId);
-			rs=pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			List<Book> bookList = new ArrayList<>();
-			while(rs.next()) {
+			while (rs.next()) {
 				Book book = new Book();
 				book.setId(rs.getInt("id"));
 				book.setUserId(rs.getInt("userId"));
@@ -34,7 +53,7 @@ public class BookDao {
 				book.setVihicleId(rs.getString("vihicleId"));
 				book.setGrade(rs.getString("grade"));
 				book.setCharge(rs.getInt("charge"));
-				
+
 				bookList.add(book);
 			}
 			return bookList;
@@ -45,9 +64,8 @@ public class BookDao {
 		}
 		return null;
 	}
-	
-	
-	//항공편 예약하기
+
+	// 항공편 예약하기
 	public int save(SaveReqDto dto) {
 		String sql = "INSERT INTO book(userId, personnel, depAirportNm, arrAirportNm, depPlandTime, arrPlandTime, vihicleId, grade, charge) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection conn = DBConn.getConnection();

@@ -21,4 +21,8 @@ public class BookService {
 	public List<Book> 예약조회(int userId){
 		return bookDao.findById(userId);
 	}
+	
+	public int 예약취소(int id) {
+		return bookDao.delete(id);
+	}
 }

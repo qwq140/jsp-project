@@ -1984,6 +1984,13 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
+.form-inline .form-select {
+	display: inline-block;
+	width : auto;
+	min-width : 194px;
+	vertical-align: middle;
+}
+
 .form-select .nice-select {
   border: none;
   border-radius: 0px;
@@ -2585,6 +2592,15 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .banner-right .form-wrap .form-control {
+  padding: 0.675rem 0.75rem;
+  font-size: 13px;
+  font-weight: 300;
+  border-radius: 0px;
+  margin-bottom: 10px;
+  border-color: #eee;
+}
+
+.banner-right .form-wrap .form-select {
   padding: 0.675rem 0.75rem;
   font-size: 13px;
   font-weight: 300;

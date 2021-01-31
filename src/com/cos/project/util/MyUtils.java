@@ -12,7 +12,6 @@ public class MyUtils {
 		result.put("군산", "NAARKJK");
 		result.put("여수", "NAARKJY");
 		result.put("원주", "NAARKNW");
-		result.put("양양", "NAARKNY");
 		result.put("제주", "NAARKPC");
 		result.put("김해", "NAARKPK");
 		result.put("사천", "NAARKPS");

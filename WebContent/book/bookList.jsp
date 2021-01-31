@@ -135,11 +135,12 @@
 						<th>좌석등급</th>
 						<th>가격</th>
 						<th></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="item" items="${bookList }">
-						<tr>
+						<tr id="reservation-${item.id }">
 							<fmt:parseDate value="${item.depPlandTime}" var="depPlandTime"
 								pattern="yyyyMMddHHmm" />
 							<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
@@ -158,6 +159,8 @@
 							<td><fmt:formatNumber value="${item.charge }" pattern="#,###" /> KRW</td>
 							<td><button type="button"
 									class="btn btn-outline-secondary btn-sm" id="payment_${item.id }" onclick="payment(${item.charge})">결제</button></td>
+							<td><button type="button"
+									class="btn btn-outline-secondary btn-sm" id="cancel_${item.id }" onclick="cancel(${item.id})">예약취소</button></td>
 					</c:forEach>
 				</tbody>
 			</table>
@@ -291,6 +294,22 @@
 					msg += '에러내용 : ' + rsp.error_msg;
 				}
 				alert(msg);
+			});
+		}
+
+		function cancel(id){
+			var id = id;
+			$.ajax({
+				type : "post",
+				url : "/project/book?cmd=reservationCancel&id="+id,
+				dataType : "json"
+			}).done(function(result){
+				if(result.statusCode == 1){
+					location.reload();
+				} else {
+					alert("예약 취소에 실패하셨습니다.");
+				}
+
 			});
 		}
 	</script>

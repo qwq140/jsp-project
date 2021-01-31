@@ -78,11 +78,13 @@
 								<li><a href="<%=request.getContextPath()%>/user?cmd=logout">로그아웃</a></li>
 								<li class="menu-has-children"><a href="">회원정보</a>
 									<ul>
-										<li><a href="<%=request.getContextPath()%>/user?cmd=infoForm">회원정보보기</a></li>
-										<li><a href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보변경</a></li>
-										<li><a href="<%=request.getContextPath()%>/user?cmd=deleteForm">회원탈퇴</a></li>
-									</ul>
-								</li>
+										<li><a
+											href="<%=request.getContextPath()%>/user?cmd=infoForm">회원정보보기</a></li>
+										<li><a
+											href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보변경</a></li>
+										<li><a
+											href="<%=request.getContextPath()%>/user?cmd=deleteForm">회원탈퇴</a></li>
+									</ul></li>
 							</c:when>
 							<c:otherwise>
 								<li><a
@@ -91,8 +93,10 @@
 									href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
 							</c:otherwise>
 						</c:choose>
-						<li><a href="<%=request.getContextPath()%>/book?cmd=bookForm">항공권 예매</a></li>
-						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약 조회</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookForm">항공권
+								예매</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약
+								조회</a></li>
 					</ul>
 				</nav>
 				<!-- #nav-menu-container -->
@@ -121,27 +125,43 @@
 				action="<%=request.getContextPath()%>/book?cmd=flightSearch"
 				method="post">
 				<input type="hidden" name="userId"
-					value="${sessionScope.principal.id }"> <input type="text"
-					class="form-control" name="depAirportNm" placeholder="출발지"
-					onfocus="this.placeholder = ''" onblur="this.placeholder = '출발지 '" required>
-				<input type="text" class="form-control" name="arrAirportNm"
-					placeholder="도착지 " onfocus="this.placeholder = ''"
-					onblur="this.placeholder = '도착지 '" required> <input type="text"
-					class="form-control date-picker" name="depPlandTime"
-					placeholder="가는날 " onfocus="this.placeholder = ''"
-					onblur="this.placeholder = '가는날 '" required> <input type="text"
-					class="form-control date-picker" name="arrPlandTime"
-					placeholder="오는날 " onfocus="this.placeholder = ''"
-					onblur="this.placeholder = '오는날 '"> <input type="number"
-					min="1" max="20" class="form-control" name="personnel"
-					placeholder="인원" onfocus="this.placeholder = ''"
-					onblur="this.placeholder = '인원 '" required> <input type="submit"
-					value="검색" class="btn btn-secondary btn-sm" style='height:38px'>
+					value="${sessionScope.principal.id }"> <select
+					class="form-select" name="depAirportNm" id="depAirportNm"
+					onchange='changeDep(this)'>
+					<option value="" selected>출발지를 선택하세요</option>
+					<option value="인천">인천</option>
+					<option value="무안">무안</option>
+					<option value="광주">광주</option>
+					<option value="군산">군산</option>
+					<option value="여수">여수</option>
+					<option value="원주">원주</option>
+					<option value="제주">제주</option>
+					<option value="김해">김해</option>
+					<option value="사천">사천</option>
+					<option value="울산">울산</option>
+					<option value="김포">김포</option>
+					<option value="포항">포항</option>
+					<option value="대구">대구</option>
+					<option value="청주">청주</option>
+				</select> 
+				<select class="form-select" name="arrAirportNm" id="arrAirportNm">
+					<option value="" selected>도착지를 선택하세요</option>
+				</select>
+				 <input type="text" class="form-control date-picker"
+					name="depPlandTime" placeholder="가는날 "
+					onfocus="this.placeholder = ''" onblur="this.placeholder = '가는날 '">
+				<input type="text" class="form-control date-picker"
+					name="arrPlandTime" placeholder="오는날 "
+					onfocus="this.placeholder = ''" onblur="this.placeholder = '오는날 '">
+				<input type="number" min="1" max="20" class="form-control"
+					name="personnel" placeholder="인원" onfocus="this.placeholder = ''"
+					onblur="this.placeholder = '인원 '"> <input type="submit"
+					value="조회" class="btn btn-secondary" style="height: 38px">
 			</form>
-			<br />
-			<br />
+			<br /> <br />
 			<c:if test="${go ne null }">
-				<div>${flightSearch.depAirportNm }  -  ${flightSearch.arrAirportNm }</div>
+				<div>${flightSearch.depAirportNm }-
+					${flightSearch.arrAirportNm }</div>
 				<br />
 				<table class="table">
 					<thead class="thead-light">
@@ -180,7 +200,8 @@
 
 
 			<c:if test="${back ne null }">
-				<div>${flightSearch.arrAirportNm } - ${flightSearch.depAirportNm }</div>
+				<div>${flightSearch.arrAirportNm }-
+					${flightSearch.depAirportNm }</div>
 				<br />
 				<table class="table">
 					<thead class="thead-light">
@@ -357,7 +378,9 @@
 	<script src="js/mail-script.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-
+	
+	<script src="/project/js/selectBox.js"></script>
+	
 	<script>
 				function go(depPlandTime, arrPlandTime, charge, vihicleId, grade){
 						var goData = {

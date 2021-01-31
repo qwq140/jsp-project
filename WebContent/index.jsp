@@ -115,12 +115,27 @@
 							aria-labelledby="flight-tab">
 							<form class="form-wrap" action = "<%=request.getContextPath()%>/book?cmd=flightSearch" method="post">
 								<input type="hidden"  name="userId" value = "${sessionScope.principal.id }">
-								<input type="text" class="form-control" name="depAirportNm"
-									placeholder="출발지" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '출발지 '"> <input type="text"
-									class="form-control" name="arrAirportNm" placeholder="도착지 "
-									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = '도착지 '"> <input type="text"
+								<select class="form-select" name="depAirportNm" id="depAirportNm"  onchange='changeDep(this)'>
+									<option value="" selected>출발지를 선택하세요</option>
+									<option value="인천" >인천</option>
+									<option value="무안" >무안</option>
+									<option value="광주" >광주</option>
+									<option value="군산" >군산</option>
+									<option value="여수" >여수</option>
+									<option value="원주" >원주</option>
+									<option value="제주" >제주</option>
+									<option value="김해" >김해</option>
+									<option value="사천" >사천</option>
+									<option value="울산" >울산</option>
+									<option value="김포" >김포</option>
+									<option value="포항" >포항</option>
+									<option value="대구" >대구</option>
+									<option value="청주" >청주</option>
+								</select> 
+								<select class="form-select" name="arrAirportNm" id="arrAirportNm" >
+									<option value="" selected>도착지를 선택하세요</option>
+								</select>
+								 <input type="text"
 									class="form-control date-picker" name="depPlandTime"
 									placeholder="가는날 " onfocus="this.placeholder = ''"
 									onblur="this.placeholder = '가는날 '"> <input
@@ -750,5 +765,7 @@
 	<script src="js/owl.carousel.min.js"></script>
 	<script src="js/mail-script.js"></script>
 	<script src="js/main.js"></script>
+	
+	<script src="/project/js/selectBox.js"></script>
 </body>
 </html>

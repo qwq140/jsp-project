@@ -71,9 +71,11 @@ public class ApiExplorer {
 			
 			//response
 	    	JSONObject j_response = (JSONObject) jsonObj.get("response");
-//	    	System.out.println("response : "+j_response);
+	    	System.out.println("response : "+j_response);
 	    	JSONObject j_body = (JSONObject) j_response.get("body");
+	    	System.out.println("body : "+j_body);
 	    	JSONObject j_items = (JSONObject) j_body.get("items");
+	    	System.out.println("items : "+j_items);
 	    	JSONArray a_item = (JSONArray)j_items.get("item");
 //	    	System.out.println("item : "+a_item);
 	    	

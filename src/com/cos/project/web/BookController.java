@@ -86,7 +86,7 @@ public class BookController extends HttpServlet {
 				dto.setDepPlandTime(depPlandTime);
 				dto.setArrPlandTime(arrPlandTime);
 
-//				System.out.println(dto);
+				System.out.println("SearchReqDto : "+dto);
 				
 				List<AirVO> go = ApiExplorer.getAirportJson(dto,"go");
 				List<AirVO> back = null;
@@ -151,7 +151,7 @@ public class BookController extends HttpServlet {
 			}
 			
 			String responseData = gson.toJson(commonRespDto);
-			System.out.println("responseData : " +responseData);
+//			System.out.println("responseData : " +responseData);
 			Script.responseData(response, responseData);		
 		} else if (cmd.equals("bookList")) {
 			HttpSession session = request.getSession();
@@ -178,6 +178,21 @@ public class BookController extends HttpServlet {
 				dis.forward(request, response);
 			}
 	
+		} else if (cmd.equals("reservationCancel")) {
+			int id = Integer.parseInt(request.getParameter("id"));
+			int result = bookService.예약취소(id);
+			CommonRespDto<Object> commonRespDto = new CommonRespDto<>();
+			
+			if(result == 1) {
+				commonRespDto.setStatusCode(1);
+			} else {
+				commonRespDto.setStatusCode(-1);
+			}
+			
+			Gson gson = new Gson();
+			String responseData = gson.toJson(commonRespDto);
+//			System.out.println("responseData : " +responseData);
+			Script.responseData(response, responseData);	
 		}
 	}
 
