@@ -167,8 +167,17 @@ public class BookController extends HttpServlet {
 				dis.forward(request, response);
 			}
 		} else if (cmd.equals("bookForm")) {
-			RequestDispatcher dis = request.getRequestDispatcher("book/bookForm.jsp");
-			dis.forward(request, response);
+			HttpSession session = request.getSession();
+			User principal = (User)session.getAttribute("principal");
+			
+			if(principal != null) {
+				RequestDispatcher dis = request.getRequestDispatcher("book/bookForm.jsp");
+				dis.forward(request, response);
+			} else {
+				RequestDispatcher dis = request.getRequestDispatcher("user/loginForm.jsp");
+				dis.forward(request, response);
+			}
+	
 		}
 	}
 

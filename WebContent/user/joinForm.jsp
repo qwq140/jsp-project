@@ -295,6 +295,7 @@
 		// 아이디 유효성 검사 ( 1 = 중복,  0 = 중복x)
 		$('#username').blur(function(){
 			var username = $('#username').val();
+			var isChecking = false;
 			$.ajax({
 				type : 'get',
 				url : '/project/user?cmd=usernameCheck&username='+username,
@@ -302,13 +303,20 @@
 			}).done(function(data){
 				console.log(data.statusCode);
 				if(data.statusCode == 1){
-					$("#username_check").text("사용중인 아이디입니다");
+					$("#username_check").text("사용중인 유저네임입니다");
 					$("#username_check").css("color", "red");
 					$("#reg_submit").attr("disabled", true);
 				} else {
-					$("#username_check").text("사용할 수 있는 아이디입니다");
-					$("#username_check").css("color","green");
-					$("#reg_submit").attr("disabled". false);
+					if(username==""){
+						$("#username_check").text("유저네임을 입력하세요");
+						$("#username_check").css("color", "red");
+						$("#reg_submit").attr("disabled", true);
+					} else {
+						$("#username_check").text("사용할 수 있는 유저네임입니다");
+						$("#username_check").css("color","green");
+						$("#reg_submit").attr("disabled", false);
+					}
+					
 				}
 			});
 		});

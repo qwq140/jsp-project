@@ -95,7 +95,7 @@
 		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
-					<h1 class="text-white">회원정보보기</h1>
+					<h1 class="text-white">회원정보변경</h1>
 				</div>
 			</div>
 		</div>
@@ -117,31 +117,19 @@
 										<strong>회원정보</strong>
 									</h3>
 								</div>
-								<form>
+								<form action="<%=request.getContextPath()%>/user?cmd=delete" method="post">
 									<label for="username">username</label>
 									<div class="form-group first">
 										<input type="text" class="form-control" id="username"
-											name="username" value="${sessionScope.principal.username }"
-											readonly>
+											name="username" >
 									</div>
 									<label for="password">password</label>
 									<div class="form-group">
-										<input type="text" class="form-control" id="name"
-											name="name" value="${sessionScope.principal.name }"
-											readonly>
+										<input type="password" class="form-control" id="password"
+											name="password" >
 									</div>
-									<label for="email">email</label>
-									<div class="form-group">
-										<input type="text" class="form-control" id="email"
-											name="email" value="${sessionScope.principal.email }"
-											readonly>
-									</div>
-									 <label for="phone">phone</label>
-									<div class="form-group last mb-4">
-										<input type="text" class="form-control" id="phone"
-											name="phone" value="${sessionScope.principal.phone }"
-											readonly>
-									</div>
+									<input type="submit" value="회원탈퇴"
+										class="btn btn-pill text-white btn-block btn-primary">
 								</form>
 							</div>
 						</div>

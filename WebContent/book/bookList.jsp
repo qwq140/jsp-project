@@ -88,17 +88,17 @@
 											href="<%=request.getContextPath()%>/user?cmd=infoForm">회원정보보기</a></li>
 										<li><a
 											href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보변경</a></li>
-									</ul></li>
+										<li><a href="<%=request.getContextPath()%>/user?cmd=deleteForm">회원탈퇴</a></li>
+									</ul>
+								</li>
 							</c:when>
 							<c:otherwise>
-								<li><a
-									href="<%=request.getContextPath()%>/user?cmd=loginForm">로그인</a></li>
-								<li><a
-									href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
+								<li><a href="<%=request.getContextPath()%>/user?cmd=loginForm">로그인</a></li>
+								<li><a href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
 							</c:otherwise>
 						</c:choose>
 						<li><a href="<%=request.getContextPath()%>/book?cmd=bookForm">항공권 예매</a></li>
-						<li><a href="<%=request.getContextPath()%>/user?cmd=bookForm">예약 조회</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약 조회</a></li>
 					</ul>
 				</nav>
 				<!-- #nav-menu-container -->

@@ -29,4 +29,17 @@ public class UserService {
 	public int 유저네임중복체크(String username) {
 		return userDao.findByUsername(username);
 	}
+	
+	public int 회원탈퇴(int id) {
+		return userDao.delete(id);
+	}
+	
+	public int 패스워드확인(int id, String password) {
+		String principalPw = userDao.pwFindById(id);
+		if(password.equals(principalPw)) {
+			return 1;
+		} else {
+			return -1;
+		}
+	}
 }

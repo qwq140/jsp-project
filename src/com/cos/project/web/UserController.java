@@ -138,6 +138,32 @@ public class UserController extends HttpServlet {
 			String responseData = gson.toJson(commonRespDto);
 			System.out.println("responseData : " +responseData);
 			Script.responseData(response, responseData);
+		} else if(cmd.equals("deleteForm")) {
+			RequestDispatcher dis = request.getRequestDispatcher("user/deleteForm.jsp");
+			dis.forward(request, response);
+		} else if(cmd.equals("delete")) {
+			HttpSession session = request.getSession();
+			User principal = (User)session.getAttribute("principal");
+			
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			
+			if (principal.getUsername().equals(username)) {
+				int pwResult = userService.패스워드확인(principal.getId(), password);
+				if(pwResult == 1) {
+					int result = userService.회원탈퇴(principal.getId());
+					if(result==1) {
+						session.invalidate();
+						response.sendRedirect("index.jsp");
+					} else {
+						Script.back(response, "삭제 실패");
+					}
+				} else {
+					Script.back(response, "username또는 password가 일치하지 않습니다.");
+				}
+			} else {
+				Script.back(response, "username또는 password가 일치하지 않습니다.");
+			}
 		}
 	}
 

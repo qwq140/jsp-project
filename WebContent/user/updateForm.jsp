@@ -75,6 +75,7 @@
 							<ul>
 								<li><a href="<%=request.getContextPath()%>/user?cmd=infoForm">회원정보보기</a></li>
 								<li><a href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보변경</a></li>
+								<li><a href="<%=request.getContextPath()%>/user?cmd=deleteForm">회원탈퇴</a></li>
 							</ul>
 						</li>
 						<li><a href="<%=request.getContextPath()%>/book?cmd=bookForm">항공권 예매</a></li>

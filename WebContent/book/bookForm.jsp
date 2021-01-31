@@ -78,11 +78,11 @@
 								<li><a href="<%=request.getContextPath()%>/user?cmd=logout">로그아웃</a></li>
 								<li class="menu-has-children"><a href="">회원정보</a>
 									<ul>
-										<li><a
-											href="<%=request.getContextPath()%>/user?cmd=infoForm">회원정보보기</a></li>
-										<li><a
-											href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보변경</a></li>
-									</ul></li>
+										<li><a href="<%=request.getContextPath()%>/user?cmd=infoForm">회원정보보기</a></li>
+										<li><a href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보변경</a></li>
+										<li><a href="<%=request.getContextPath()%>/user?cmd=deleteForm">회원탈퇴</a></li>
+									</ul>
+								</li>
 							</c:when>
 							<c:otherwise>
 								<li><a
@@ -92,8 +92,7 @@
 							</c:otherwise>
 						</c:choose>
 						<li><a href="<%=request.getContextPath()%>/book?cmd=bookForm">항공권 예매</a></li>
-						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약
-								조회</a></li>
+						<li><a href="<%=request.getContextPath()%>/book?cmd=bookList">예약 조회</a></li>
 					</ul>
 				</nav>
 				<!-- #nav-menu-container -->
@@ -142,7 +141,7 @@
 			<br />
 			<br />
 			<c:if test="${go ne null }">
-				<div>가는 편</div>
+				<div>${flightSearch.depAirportNm }  -  ${flightSearch.arrAirportNm }</div>
 				<br />
 				<table class="table">
 					<thead class="thead-light">
@@ -181,7 +180,7 @@
 
 
 			<c:if test="${back ne null }">
-				<div>오는 편</div>
+				<div>${flightSearch.arrAirportNm } - ${flightSearch.depAirportNm }</div>
 				<br />
 				<table class="table">
 					<thead class="thead-light">

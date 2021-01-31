@@ -11,6 +11,45 @@ import com.cos.project.domain.user.dto.UpdateReqDto;
 
 public class UserDao {
 	
+	public String pwFindById(int id) {
+		String sql = "SELECT password FROM user WHERE id = ?";
+		Connection conn = DBConn.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				String principalPw = rs.getString("password");
+				return principalPw;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		return null;
+	}
+	
+	// 회원탈퇴
+	public int delete(int id) {
+		String sql = "DELETE FROM user WHERE id = ?";
+		Connection conn = DBConn.getConnection();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			int result = pstmt.executeUpdate();
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(conn, pstmt);
+		}
+		return -1;
+	}
+	
 	// 유저네임 중복확인
 	public int findByUsername(String username) {
 			String sql = "SELECT * FROM user WHERE username = ?";
