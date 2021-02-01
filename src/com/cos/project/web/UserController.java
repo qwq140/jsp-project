@@ -119,7 +119,8 @@ public class UserController extends HttpServlet {
 			if(result == 1) {
 				HttpSession session = request.getSession();
 				session.invalidate();
-				response.sendRedirect("index.jsp");
+				RequestDispatcher dis = request.getRequestDispatcher("user/loginForm.jsp");
+				dis.forward(request, response);
 			} else {
 				Script.back(response, "회원정보수정 실패");
 			}
