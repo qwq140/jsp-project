@@ -11,6 +11,34 @@ import com.cos.project.domain.user.dto.UpdateReqDto;
 
 public class UserDao {
 	
+	public User findById(int id) {
+		String sql = "SELECT * FROM user WHERE id = ?";
+		Connection conn = DBConn.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				User user = User.builder()
+						.id(rs.getInt("id"))
+						.username(rs.getString("username"))
+						.name(rs.getString("name"))
+						.email(rs.getString("email"))
+						.phone(rs.getString("phone"))
+						.role(rs.getString("role"))
+						.build();
+				return user;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		return null;
+	}
+	
 	public String pwFindById(int id) {
 		String sql = "SELECT password FROM user WHERE id = ?";
 		Connection conn = DBConn.getConnection();

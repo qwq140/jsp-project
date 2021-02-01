@@ -34,6 +34,10 @@ public class UserService {
 		return userDao.delete(id);
 	}
 	
+	public User 세션갱신(int id) {
+		return userDao.findById(id);
+	}
+	
 	public int 패스워드확인(int id, String password) {
 		String principalPw = userDao.pwFindById(id);
 		if(password.equals(principalPw)) {

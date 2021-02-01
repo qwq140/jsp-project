@@ -102,6 +102,9 @@ public class UserController extends HttpServlet {
 			RequestDispatcher dis = request.getRequestDispatcher("user/updateForm.jsp");
 			dis.forward(request, response);
 		} else if(cmd.equals("update")) {
+			HttpSession session = request.getSession();
+			User principal = (User)session.getAttribute("principal");
+			
 			int id = Integer.parseInt(request.getParameter("id"));
 			String password = request.getParameter("password");
 			String email = request.getParameter("email");
@@ -117,9 +120,9 @@ public class UserController extends HttpServlet {
 			
 			int result = userService.회원정보수정(dto);
 			if(result == 1) {
-				HttpSession session = request.getSession();
-				session.invalidate();
-				RequestDispatcher dis = request.getRequestDispatcher("user/loginForm.jsp");
+				principal = userService.세션갱신(principal.getId());
+				session.setAttribute("principal", principal);
+				RequestDispatcher dis = request.getRequestDispatcher("user/infoForm.jsp");
 				dis.forward(request, response);
 			} else {
 				Script.back(response, "회원정보수정 실패");
